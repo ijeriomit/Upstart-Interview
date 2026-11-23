@@ -1,0 +1,31 @@
+/* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
+
+.battery-card {
+  box-sizing: border-box;
+  width: min(100%, 360px);
+  margin: 16px auto;
+  padding: 20px;
+  border: 1px solid #cbd5d1;
+  border-left: 4px solid #237a57;
+  border-radius: 8px;
+  background: #fff;
+  color: #202824;
+  font-family: Arial, sans-serif;
+  overflow-wrap: anywhere;
+}
+
+.battery-card h2 {
+  margin: 16px 0 6px;
+  font-size: 14px;
+}
+
+.battery-card h2:first-child {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.battery-card p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+}

@@ -1,0 +1,19 @@
+deposit:
+  account: checking
+  direction: credit
+  amount: '12.35'
+  description: Opening deposit
+  created_at: '2026-01-01 12:00:00'
+
+payment:
+  account: checking
+  direction: debit
+  amount: '2.25'
+  description: Internet service
+  created_at: '2026-01-02 12:00:00'
+
+jordan_deposit:
+  account: personal
+  direction: credit
+  amount: '50.00'
+  created_at: '2026-01-02 12:00:00'

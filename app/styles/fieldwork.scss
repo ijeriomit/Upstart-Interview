@@ -1,0 +1,283 @@
+// Sass variables keep colors and spacing reusable. The .fieldwork wrapper
+// keeps these styles local to the interview screens.
+$ink: #172431;
+$muted: #486273;
+$teal: #00645a;
+$teal-dark: #03483f;
+$canvas: #f3f7f7;
+$border: #ccd9df;
+$danger: #9e3028;
+$radius: 1rem;
+$space: 1rem;
+
+body:has(.fieldwork) {
+  margin: 0;
+  background: $canvas;
+}
+
+.fieldwork {
+  color: $ink;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+
+  h1,
+  h2,
+  p {
+    margin: 0;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1.12;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    line-height: 1.3;
+  }
+
+  a {
+    color: $teal;
+    text-underline-offset: 0.2em;
+  }
+
+  :focus-visible {
+    outline: 2px solid $teal;
+    outline-offset: 3px;
+  }
+}
+
+.fieldwork-shell {
+  width: min(calc(100% - 2 * $space), 68rem);
+  margin-inline: auto;
+}
+
+.fieldwork-header {
+  border-bottom: 1px solid $border;
+  background: #fff;
+}
+
+.fieldwork-header-inner {
+  display: flex;
+  min-height: 4.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space;
+}
+
+.fieldwork-brand {
+  font-size: 1.45rem;
+  font-weight: 750;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+}
+
+.fieldwork-identity {
+  display: grid;
+  font-size: 0.875rem;
+  text-align: right;
+
+  span {
+    color: $muted;
+    font-size: 0.75rem;
+  }
+}
+
+.fieldwork-main {
+  padding-block: clamp(2rem, 6vw, 4rem);
+}
+
+.fieldwork .fieldwork-intro {
+  margin-top: 0.65rem;
+  color: $muted;
+}
+
+.fieldwork-account-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: $space;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fieldwork-card {
+  padding: clamp(1rem, 3vw, 1.55rem);
+  border: 1px solid $border;
+  border-radius: $radius;
+  background: #fff;
+}
+
+.fieldwork .fieldwork-label {
+  margin-top: $space;
+  color: $muted;
+  font-size: 0.875rem;
+}
+
+.fieldwork-amount {
+  font-size: clamp(1.45rem, 3vw, 2.1rem);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  overflow-wrap: anywhere;
+}
+
+.fieldwork-card-link,
+.fieldwork-back-link {
+  display: inline-block;
+  font-weight: 650;
+}
+
+.fieldwork-card-link {
+  margin-top: $space;
+}
+
+.fieldwork-back-link {
+  margin-bottom: $space;
+}
+
+.fieldwork-summary,
+.fieldwork-detail-grid {
+  display: grid;
+  gap: $space;
+  margin: 1.5rem 0 0;
+}
+
+.fieldwork-summary {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  dt {
+    color: $muted;
+    font-size: 0.875rem;
+  }
+
+  dd {
+    margin: 0.3rem 0 0;
+  }
+}
+
+.fieldwork-balance {
+  border-color: #a8cfc7;
+  background: #e4f3ef;
+}
+
+.fieldwork-detail-grid {
+  grid-template-columns: minmax(0, 1.55fr) minmax(16rem, 1fr);
+  align-items: start;
+}
+
+.fieldwork-history {
+  margin: $space 0 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-block: 0.7rem;
+    border-top: 1px solid $border;
+    overflow-wrap: anywhere;
+  }
+
+  strong {
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: normal;
+  }
+
+  time,
+  .fieldwork-history-empty {
+    color: $muted;
+    font-size: 0.875rem;
+  }
+}
+
+.fieldwork-entry-name {
+  font-weight: 650;
+}
+
+.fieldwork-form {
+  margin-top: $space;
+
+  fieldset {
+    display: grid;
+    gap: $space;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 650;
+  }
+
+  input,
+  select {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    padding: 0.6rem 0.7rem;
+    margin-top: 0.3rem;
+    border: 1px solid #8199a4;
+    border-radius: 0.45rem;
+    background: #fff;
+    color: $ink;
+    font: inherit;
+    font-weight: 400;
+  }
+}
+
+.fieldwork-optional {
+  color: $muted;
+  font-weight: 400;
+}
+
+.fieldwork-button {
+  padding: 0.65rem $space;
+  border: 1px solid transparent;
+  border-radius: 0.45rem;
+  background: $teal;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+
+  &:hover {
+    background: $teal-dark;
+  }
+
+  &:disabled {
+    cursor: wait;
+    opacity: 0.65;
+  }
+}
+
+.fieldwork .fieldwork-feedback {
+  margin-top: $space;
+  color: $teal-dark;
+  font-size: 0.875rem;
+}
+
+.fieldwork .fieldwork-error {
+  color: $danger;
+}
+
+@media (width <= 44rem) {
+  .fieldwork-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fieldwork-balance {
+    grid-column: 1 / -1;
+  }
+
+  .fieldwork-detail-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

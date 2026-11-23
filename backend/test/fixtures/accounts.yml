@@ -1,0 +1,14 @@
+checking:
+  user: alex
+  name: Everyday checking
+  balance: '10.10'
+
+savings:
+  user: alex
+  name: Rainy day savings
+  balance: '0.00'
+
+personal:
+  user: jordan
+  name: Personal checking
+  balance: '50.00'

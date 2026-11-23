@@ -1,0 +1,33 @@
+# compiled output
+/dist/
+/tmp/
+
+# dependencies
+/node_modules/
+
+# misc
+*.local
+/.pnp*
+/.eslintcache
+/coverage/
+/npm-debug.log*
+/testem.log
+/yarn-error.log
+
+# broccoli-debug
+/DEBUG/
+/.playwright-mcp/
+
+# Local Rails state and credentials
+/backend/.bundle/
+/backend/.env*
+/backend/config/master.key
+/backend/config/credentials/*.key
+/backend/log/*.log
+/backend/storage/
+/backend/tmp/*
+!/backend/tmp/.keep
+!/backend/tmp/pids/
+/backend/tmp/pids/*
+!/backend/tmp/pids/.keep
+/backend/vendor/bundle/

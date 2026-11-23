@@ -1,0 +1,22 @@
+# Keep the existing database volume when the workspace folder is renamed.
+name: battery-dashboard
+
+services:
+  db:
+    image: postgres:17-bookworm
+    environment:
+      POSTGRES_USER: interview
+      POSTGRES_PASSWORD: interview
+      POSTGRES_DB: fieldwork_development
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - fieldwork_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U interview -d fieldwork_development"]
+      interval: 2s
+      timeout: 5s
+      retries: 15
+
+volumes:
+  fieldwork_postgres:

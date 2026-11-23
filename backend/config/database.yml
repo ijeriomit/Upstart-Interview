@@ -1,0 +1,10 @@
+# Compose publishes PostgreSQL on 5433. Tests use a separate database so they
+# can load fixtures without touching the records you create in development.
+development:
+  url: <%= ENV.fetch("DATABASE_URL", "postgresql://interview:interview@127.0.0.1:5433/fieldwork_development") %>
+
+test:
+  url: <%= ENV.fetch("TEST_DATABASE_URL", "postgresql://interview:interview@127.0.0.1:5433/fieldwork_test") %>
+
+production:
+  url: <%= ENV["DATABASE_URL"] %>
