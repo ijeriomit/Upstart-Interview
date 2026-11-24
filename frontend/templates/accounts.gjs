@@ -11,6 +11,7 @@ import { LinkTo } from '@ember/routing';
         <div class="accounts-dashboard-identity">
           <span>Demo user</span>
           <strong>{{@model.name}}</strong>
+          <LinkTo @route="sign-in">Sign in</LinkTo>
         </div>
       </div>
     </header>
