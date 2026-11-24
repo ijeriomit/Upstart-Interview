@@ -8,7 +8,11 @@ export default async function (defaults) {
   const { buildOnce } = await import('@embroider/vite');
 
   const app = new EmberApp(defaults, {
-    // Add options here
+    trees: {
+      app: 'frontend',
+      styles: 'frontend/styles',
+      templates: 'frontend/templates',
+    },
   });
 
   setConfig(app, dirname(fileURLToPath(import.meta.url)), {

@@ -8,7 +8,7 @@
   "author": "",
   "exports": {
     "./tests/*": "./tests/*",
-    "./*": "./app/*"
+    "./*": "./frontend/*"
   },
   "directories": {
     "doc": "doc",

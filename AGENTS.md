@@ -16,7 +16,7 @@
 
 - Use Node 22.12 or newer on the Node 22 release line. Run `nvm install` from the project root to use `.nvmrc`.
 - Run `npm ci` from the project root. Use `npm test` to watch frontend tests in Chrome or `npm run test:ci` for a headless run that exits after the tests finish.
-- Use the Ruby version in `backend/.ruby-version`. See `README.md` for database setup, then run `bin/rails test` from `backend/`.
+- Use the Ruby version in `backend/.ruby-version`. See `README.md` for database setup, then run `bundle exec rspec` from `backend/`.
 
 ## Frontend Data
 

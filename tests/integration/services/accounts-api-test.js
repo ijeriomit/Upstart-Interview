@@ -163,7 +163,7 @@ module('Integration | Service | accounts-api', function (hooks) {
 
     assert.strictEqual(this.pushCalls.length, 1);
     assert.strictEqual(this.pushCalls[0].data.attributes.balance, '10.30');
-    assert.strictEqual(this.pushCalls[0].included[0].amount, '0.20');
+    assert.strictEqual(this.pushCalls[0].included[0].attributes.amount, '0.20');
     assert.strictEqual(pushed, this.pushCalls[0]);
   });
 

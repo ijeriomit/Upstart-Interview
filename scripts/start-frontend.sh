@@ -10,11 +10,14 @@ exec > >(tee -a .agent/trace.log) 2>&1
 
 echo "Starting frontend (Node + Vite)..."
 
+nvm_script="${NVM_DIR:-$HOME/.nvm}/nvm.sh"
+if ! command -v nvm >/dev/null 2>&1 && [[ -s "$nvm_script" ]]; then
+  source "$nvm_script" --no-use
+fi
+
 if command -v nvm >/dev/null 2>&1; then
-  echo "== nvm install =="
-  nvm install
   echo "== nvm use =="
-  nvm use
+  nvm use || nvm install
 fi
 
 echo "== node -v =="
