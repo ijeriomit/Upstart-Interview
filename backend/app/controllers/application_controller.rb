@@ -5,8 +5,12 @@ class ApplicationController < ActionController::API
   # bodies in a model key inferred from the controller name.
   wrap_parameters false
 
+  # Load the current user before each API action. Rendering an error in this
+  # callback ends the request before the action runs.
   before_action :load_demo_user
 
+  # Convert lookup, authorization, and validation exceptions into the same
+  # JSON error format across controllers.
   rescue_from ActiveRecord::RecordNotFound do
     render_error(:not_found, "not_found", "The requested record was not found.")
   end
@@ -29,11 +33,13 @@ class ApplicationController < ActionController::API
 
   private
 
-  # Pundit calls current_user when it constructs policies and scopes. The
-  # server chooses the demo identity so the browser cannot impersonate a user.
+  # attr_reader exposes @current_user through the current_user method that
+  # Pundit calls when constructing policies and scopes.
   attr_reader :current_user
 
   def load_demo_user
+    # The server selects the demo identity from its environment in development
+    # and test. With no loaded identity, the request receives a 401.
     if Rails.env.development? || Rails.env.test?
       @current_user = User.find_by(email: ENV.fetch("DEMO_USER_EMAIL", "alex@example.test"))
     end
