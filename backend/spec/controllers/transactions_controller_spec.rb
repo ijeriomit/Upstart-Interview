@@ -1,6 +1,6 @@
 require_relative "../rails_helper"
 
-RSpec.describe Api::TransactionsController, type: :controller do
+RSpec.describe Api::TransactionsController, "controller actions", type: :controller do
   fixtures :users, :accounts
 
   let(:account) { accounts(:checking) }
@@ -81,5 +81,89 @@ RSpec.describe Api::TransactionsController, type: :controller do
 
   def post_entry(account, **attributes)
     post :create, params: { account_id: account.id, transaction: attributes }, as: :json
+  end
+end
+
+RSpec.describe Api::TransactionsController, "HTTP requests", type: :request do
+  fixtures :users, :accounts, :transactions
+
+  before do
+    alex = users(:alex)
+    password = "test-sign-in-password"
+    alex.update!(password: password)
+    @authenticated_headers = { "Authorization" => ActionController::HttpAuthentication::Basic.encode_credentials(alex.email, password) }
+  end
+
+  it "posts credits and debits and updates the balance exactly" do
+    account = accounts(:checking)
+
+    expect do
+      post_entry(account, direction: "credit", amount: "0.20")
+      expect(response).to have_http_status(:created)
+      expect(response.parsed_body.dig("account", "balance")).to eq("10.30")
+
+      post_entry(account, direction: "debit", amount: "0.10")
+      expect(response).to have_http_status(:created)
+      expect(response.parsed_body.dig("account", "balance")).to eq("10.20")
+    end.to change(Transaction, :count).by(2)
+
+    expect(account.reload.balance).to eq(BigDecimal("10.20"))
+  end
+
+  it "rejects JSON numbers, excessive scale, and invalid directions without writing" do
+    account = accounts(:checking)
+
+    expect do
+      [0.20, "0.201"].each do |amount|
+        post_entry(account, direction: "credit", amount: amount)
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body.dig("error", "code")).to eq("invalid_amount")
+      end
+
+      post_entry(account, direction: "transfer", amount: "0.20")
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(response.parsed_body.dig("error", "code")).to eq("validation_failed")
+    end.not_to change(Transaction, :count)
+
+    expect(account.reload.balance).to eq(BigDecimal("10.10"))
+  end
+
+  it "rolls back the transaction row when the balance update is invalid" do
+    account = accounts(:checking)
+
+    expect do
+      post_entry(account, direction: "debit", amount: "10.11")
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(response.parsed_body.dig("error", "code")).to eq("validation_failed")
+    end.not_to change(Transaction, :count)
+
+    expect(account.reload.balance).to eq(BigDecimal("10.10"))
+  end
+
+  it "cannot write another user's account" do
+    other_account = accounts(:personal)
+
+    expect do
+      post_entry(other_account, direction: "credit", amount: "1.00")
+      expect(response).to have_http_status(:not_found)
+      expect(response.parsed_body.dig("error", "code")).to eq("not_found")
+    end.not_to change(Transaction, :count)
+
+    expect(other_account.reload.balance).to eq(BigDecimal("50.00"))
+  end
+
+  it "requires a transaction object" do
+    post api_account_transactions_path(accounts(:checking)), params: { amount: "1.00" },
+      headers: @authenticated_headers, as: :json
+
+    expect(response).to have_http_status(:bad_request)
+    expect(response.parsed_body.dig("error", "code")).to eq("bad_request")
+  end
+
+  private
+
+  def post_entry(account, **attributes)
+    post api_account_transactions_path(account), params: { transaction: attributes },
+      headers: @authenticated_headers, as: :json
   end
 end

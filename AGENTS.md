@@ -36,6 +36,9 @@ For every development task:
 3. Delegate appropriate subtasks to specialized agents.
 4. Collect and review their findings.
 5. Integrate changes and validate the final result.
+6. Write and review code comments that explain non-obvious system behavior,
+   including authentication, authorization, data flow, and transaction
+   boundaries. Keep comments accurate as the implementation changes.
 
 ## Agent Responsibilities
 
@@ -64,6 +67,15 @@ Responsible for:
 - Security vulnerabilities
 - Race conditions
 - Missing test coverage
+
+### Planner Agent
+
+Responsible for:
+
+- Reviewing a draft plan at a high level before implementation
+- Cutting the plan to the smallest useful interview-sized slice
+- Stating what is in scope and out of scope, including deferred work
+- Asking the user for details only when an unanswered choice changes the slice
 
 ## Delegation Rules
 
@@ -97,20 +109,28 @@ For substantial development requests, follow these phases in order.
 - For each plan slice, include: scope, dependencies, testing strategy, risks, and sequence.
 - Explain reasoning and tradeoffs in plain language for developer learning.
 
-### Phase 4: Explicit Approval Gate
+### Phase 4: Planner Scope Review
+
+- Have the Planner review the draft plan after Phase 3.
+- Record the smallest useful slice and explicit in-scope and out-of-scope work.
+- Remove optional infrastructure and polish that do not prove the slice.
+- Prompt the user for details when a material choice cannot be inferred from
+  the existing conversation or codebase.
+
+### Phase 5: Explicit Approval Gate
 
 - Pause and request explicit user approval before implementation.
 - Treat approvals as granular to the approved slice only.
 - Subagent recommendations are not approvals.
 
-### Phase 5: Incremental Implementation
+### Phase 6: Incremental Implementation
 
 - Implement only approved scope.
 - Update or add relevant tests and run focused validation.
 - Summarize file changes, decisions, tradeoffs, and remaining risks.
 - Stop before starting unapproved follow-up slices.
 
-### Phase 6: Independent Review
+### Phase 7: Independent Review
 
 - For significant changes, delegate review to the Review Agent.
 - Review must cover correctness, security, race conditions, maintainability, and missing tests.

@@ -9,7 +9,7 @@ import {
   fillUser,
   removeAccount,
   submitSignUp,
-} from 'accounts-dashboard/tests/helpers/demo-sign-up-form';
+} from 'accounts-dashboard/tests/helpers/sign-up-form';
 
 module('Integration | Component | sign-up-form', function (hooks) {
   setupRenderingTest(hooks);

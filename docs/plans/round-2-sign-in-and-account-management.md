@@ -9,7 +9,7 @@
 | `feature/frontend-sign-in-form`     | Standalone Ember sign-in form and its browser validation.                                                                                                          |
 | `feature/frontend-session-menu`     | Builds on the form branch. Holds the sign-in route, hamburger actions, session restoration, and store cleanup.                                                     |
 | `feature/frontend-account-deletion` | Delete action, warning, and typed-name confirmation. Integrate with the closure API after its contract is ready.                                                   |
-| `feature/backend-users-sessions`    | Create-user action, sessions, and demo credential setup. The migrated draft still references bcrypt. Replace that path with mock credentials during branch review. |
+| `feature/backend-users-sessions`    | Create-user action, sessions, and demo credential setup. The branch uses plain-text mock passwords and creates typed opening accounts atomically.                |
 | `feature/backend-account-closure`   | Retain closed accounts and their ledger rows, filter both Pundit scopes to open accounts, and update policy specs.                                                 |
 
 Account creation, account types, and the overdraft limit remain in the Round 2 acceptance criteria. Their branch placement is pending.
@@ -44,8 +44,8 @@ Account list and detail responses add `accountType` to their existing account fi
 
 ### 1. Session identity and navigation
 
-- **Backend agent.** Use a local-only mock credential check and preserve the session API needed by Ember. Keep mock credentials outside the database and repository. Finalize the session and local credential design during the backend branch review, including how newly created mock users receive credentials.
-- **Existing-user setup.** Preserve Alex and Jordan's existing records and their account history. Use local configuration to give each seeded identity a mock password. Verify both identities can sign in before switching protected routes to session identity.
+- **Backend agent.** Use a mock credential check and preserve the session API needed by Ember. Store the demo password in the user row without bcrypt, as agreed for this interview project. Never include it in API responses or request logs.
+- **Existing-user setup.** Preserve Alex and Jordan's existing records and their account history. Seeds give missing credentials a documented mock password, with local environment overrides. Verify both identities can sign in before switching protected routes to session identity.
 - **Frontend agent.** Add `menu.gjs` to the application shell and a public `/sign-in` route. Restore tracked session state with `/api/me` before loading account routes. Distinguish a `401` from a network failure. On session change, clear protected route and Ember Data state and ignore late replies from the previous session before they reach the store.
 - **Proof.** Rails request specs exercise login, `/api/me`, invalid credentials, CSRF, and logout with separate clients. Verify that provisioning an existing user preserves their ID and access to their existing accounts, and that seeds preserve an existing password on rerun. Ember acceptance covers menu states, refresh, and a delayed response from the previous user arriving after sign-out.
 
@@ -74,5 +74,7 @@ The orchestrator freezes the API contract for each approved slice before backend
 **Decisions to confirm before the relevant slice.** Backfill known demo types and approve a classification rule for remaining accounts. Treat typing the name as account deletion confirmation. Confirm whether closed account names stay reserved under the current unique constraint. Confirm a credential enrollment path if there are existing users outside the local environment.
 
 **Migration and recovery.** Add fields, run a repeatable backfill, and verify existing records before enforcing required types. Coordinate the database and Rails overdraft change before accepting negative balances. A rollback must preserve session authorization and keep closed accounts out of active queries. After negative balances exist, returning to the old database bound would fail until those balances are addressed. Use a forward correction when rollback would expose closed accounts or reject existing balances.
+
+The demo password column is additive and leaves the earlier digest column in place. Once users register through the new endpoint, rolling this migration back would discard their mock passwords. Preserve a database backup and use a forward correction after registration data exists.
 
 **Pre-split verification.** Chrome passed 21 Ember examples on the original session draft. Ruby syntax checks passed. Rails runtime verification stopped at the missing bcrypt gem. Validate the frontend and backend again as their branches are finalized.

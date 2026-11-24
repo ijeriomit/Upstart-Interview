@@ -1,5 +1,9 @@
 import Service from '@ember/service';
 import { module, test } from 'qunit';
+import {
+  CREDENTIALS_KEY,
+  SessionChangedError,
+} from 'accounts-dashboard/services/accounts-api';
 import { setupTest } from 'accounts-dashboard/tests/helpers';
 
 const ACCOUNT = { id: '1', name: 'Everyday checking', balance: '10.10' };
@@ -17,20 +21,42 @@ module('Integration | Service | accounts-api', function (hooks) {
   setupTest(hooks);
 
   hooks.beforeEach(function () {
+    sessionStorage.setItem(
+      CREDENTIALS_KEY,
+      JSON.stringify({ email: 'alex@example.test', password: 'mock-password' }),
+    );
     this.pushCalls = [];
+    this.routes = [];
     const pushCalls = this.pushCalls;
+    const routes = this.routes;
 
     this.owner.register(
       'service:store',
       class extends Service {
+        unloadAll() {
+          pushCalls.length = 0;
+        }
+
         push(payload) {
           pushCalls.push(payload);
           return payload;
         }
       },
     );
+    this.owner.register(
+      'service:router',
+      class extends Service {
+        replaceWith(route) {
+          routes.push(route);
+        }
+      },
+    );
 
     this.accountsApi = this.owner.lookup('service:accounts-api');
+  });
+
+  hooks.afterEach(function () {
+    sessionStorage.removeItem(CREDENTIALS_KEY);
   });
 
   test('getCurrentUser requests /me and pushes normalized user payload', async function (assert) {
@@ -119,6 +145,76 @@ module('Integration | Service | accounts-api', function (hooks) {
       '1.50',
       'keeps decimal strings from Rails',
     );
+  });
+
+  test('sign-in keeps mock credentials for refresh and sign-out clears them', async function (assert) {
+    this.accountsApi.request = async (path) =>
+      path === '/session'
+        ? { user: { id: '1', name: 'Alex Morgan', email: 'alex@example.test' } }
+        : null;
+
+    await this.accountsApi.signIn({
+      email: 'alex@example.test',
+      password: 'mock-password',
+    });
+    assert.strictEqual(this.accountsApi.currentUser.data.id, '1');
+    assert.deepEqual(JSON.parse(sessionStorage.getItem(CREDENTIALS_KEY)), {
+      email: 'alex@example.test',
+      password: 'mock-password',
+    });
+    assert.deepEqual(this.routes, ['accounts.index']);
+
+    await this.accountsApi.signOut();
+    assert.strictEqual(this.accountsApi.currentUser, null);
+    assert.strictEqual(sessionStorage.getItem(CREDENTIALS_KEY), null);
+    assert.deepEqual(this.pushCalls, []);
+    assert.deepEqual(this.routes, ['accounts.index', 'sign-in']);
+  });
+
+  test('register posts the user and opening accounts without storing credentials', async function (assert) {
+    const registration = {
+      user: {
+        name: 'Taylor',
+        email: 'taylor@example.test',
+        password: 'demo-password',
+      },
+      accounts: [
+        { name: 'Daily', accountType: 'checking', initialDeposit: '0' },
+      ],
+    };
+    this.accountsApi.request = async (path, options) => {
+      assert.strictEqual(path, '/users');
+      assert.strictEqual(options.public, true);
+      assert.deepEqual(JSON.parse(options.body), registration);
+      return {
+        user: { id: '3', name: 'Taylor', email: 'taylor@example.test' },
+      };
+    };
+
+    const saved = await this.accountsApi.register(registration);
+    assert.strictEqual(saved.user.id, '3');
+    assert.strictEqual(this.accountsApi.currentUser, null);
+  });
+
+  test('an old account response cannot enter the store after sign-out', async function (assert) {
+    let resolveList;
+    this.accountsApi.request = async (path) => {
+      if (path === '/accounts') {
+        return new Promise((resolve) => {
+          resolveList = resolve;
+        });
+      }
+      return null;
+    };
+
+    const loading = assert.rejects(
+      this.accountsApi.getAccounts(),
+      SessionChangedError,
+    );
+    await this.accountsApi.signOut();
+    resolveList({ accounts: [ACCOUNT] });
+    await loading;
+    assert.deepEqual(this.pushCalls, []);
   });
 
   test('createTransaction POSTs JSON payload and pushes updated summary', async function (assert) {
@@ -212,7 +308,11 @@ module('Integration | Service | accounts-api', function (hooks) {
     await this.accountsApi.getAccounts();
 
     assert.strictEqual(listAttempts, 2);
-    assert.strictEqual(this.pushCalls.length, 2, 'transaction summary + fresh list');
+    assert.strictEqual(
+      this.pushCalls.length,
+      2,
+      'transaction summary + fresh list',
+    );
 
     const listPush = this.pushCalls[1];
     assert.deepEqual(listPush, {

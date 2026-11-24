@@ -1,6 +1,6 @@
 require_relative "../rails_helper"
 
-RSpec.describe Api::AccountsController, type: :controller do
+RSpec.describe Api::AccountsController, "controller actions", type: :controller do
   fixtures :users, :accounts
 
   before do
@@ -40,4 +40,54 @@ RSpec.describe Api::AccountsController, type: :controller do
     expect(response).to have_http_status(:ok)
     expect(response.parsed_body).to eq("accounts" => expected_accounts.map(&:stringify_keys))
   end
+end
+
+RSpec.describe Api::AccountsController, "HTTP requests", type: :request do
+  fixtures :users, :accounts, :transactions
+
+  before do
+    alex = users(:alex)
+    password = "test-sign-in-password"
+    alex.update!(password: password)
+    @auth_headers = { "Authorization" => ActionController::HttpAuthentication::Basic.encode_credentials(alex.email, password) }
+  end
+
+  it "requires a signed-in user" do
+    anonymous = open_session
+    anonymous.get api_accounts_path
+
+    expect(anonymous.response).to have_http_status(:unauthorized)
+    expect(anonymous.response.parsed_body.dig("error", "code")).to eq("unauthorized")
+  end
+
+  it "lists only the current user's accounts and scopes their transactions" do
+    get api_accounts_path, headers: @auth_headers
+
+    expect(response).to have_http_status(:ok)
+    account_ids = response.parsed_body.fetch("accounts").pluck("id")
+    expect(account_ids).to eq([accounts(:checking).id.to_s, accounts(:savings).id.to_s])
+
+    visible_transactions = Pundit.policy_scope!(users(:alex), Transaction)
+    expect(visible_transactions.ids).to match_array([transactions(:deposit).id, transactions(:payment).id])
+  end
+
+  it "shows exact totals and newest transactions first" do
+    get api_account_path(accounts(:checking)), headers: @auth_headers
+
+    expect(response).to have_http_status(:ok)
+    summary = response.parsed_body
+    expect(summary.dig("account", "balance")).to eq("10.10")
+    expect(summary.fetch("totalCredits")).to eq("12.35")
+    expect(summary.fetch("totalDebits")).to eq("2.25")
+    expect(summary.fetch("transactions").pluck("id")).to eq([transactions(:payment).id.to_s, transactions(:deposit).id.to_s])
+  end
+
+  it "cannot read another user's account" do
+    other_account = accounts(:personal)
+    get api_account_path(other_account), headers: @auth_headers
+
+    expect(response).to have_http_status(:not_found)
+    expect(response.parsed_body.dig("error", "code")).to eq("not_found")
+  end
+
 end

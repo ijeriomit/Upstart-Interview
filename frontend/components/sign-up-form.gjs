@@ -93,13 +93,13 @@ export default class SignUpForm extends Component {
           <input
             name="userName"
             autocomplete="name"
-            title="Enter the name to show on your demo accounts."
+            title="Enter the name to show on your accounts."
             aria-describedby="signup-name-help"
             required
           />
         </label>
         <p id="signup-name-help" class="accounts-dashboard-optional">
-          This name appears on your demo account preview.
+          This name appears on your account dashboard.
         </p>
         <label>
           Email
@@ -107,27 +107,27 @@ export default class SignUpForm extends Component {
             type="email"
             name="email"
             autocomplete="email"
-            title="Use an email address for this demo form."
+            title="Use the email address you will sign in with."
             aria-describedby="signup-email-help"
             required
           />
         </label>
         <p id="signup-email-help" class="accounts-dashboard-optional">
-          Use an email address for this demo form.
+          Use the email address you will sign in with.
         </p>
         <label>
-          Demo password
+          Password
           <input
             type="password"
             name="password"
             autocomplete="new-password"
-            title="Use a made-up password; this preview does not save it."
+            title="Use a made-up password for this interview project."
             aria-describedby="signup-password-help"
             required
           />
         </label>
         <p id="signup-password-help" class="accounts-dashboard-optional">
-          Use a made-up password. This preview does not save it.
+          Use a made-up password for this interview project.
         </p>
         <h2>Opening accounts</h2>
         <p id="opening-name-help" class="accounts-dashboard-optional">
@@ -205,7 +205,7 @@ export default class SignUpForm extends Component {
           {{on "click" this.addAccount}}
         >Add another account</button>
         <button type="submit" class="accounts-dashboard-button">
-          {{if this.isSubmitting "Creating…" "Create demo user"}}
+          {{if this.isSubmitting "Creating…" "Create user"}}
         </button>
       </fieldset>
       {{#if this.error}}

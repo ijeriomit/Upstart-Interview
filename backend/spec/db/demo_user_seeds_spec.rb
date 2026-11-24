@@ -15,11 +15,12 @@ RSpec.describe "Demo user seeds" do
 
     Rails.application.load_seed
 
-    expect(alex.reload.authenticate("first-test-password")).to eq(alex)
+    expect(alex.reload.password).to eq("first-test-password")
+    expect(users(:jordan).reload.password).to eq("mock-password")
     expect(checking.reload.user_id).to eq(alex.id)
     expect(checking.transactions.ids).to match_array(transaction_ids)
 
     allow(ENV).to receive(:[]).with("DEMO_ALEX_PASSWORD").and_return("second-test-password")
-    expect { Rails.application.load_seed }.not_to change { alex.reload.password_digest }
+    expect { Rails.application.load_seed }.not_to change { alex.reload.password }
   end
 end

@@ -5,6 +5,9 @@ class Account < ApplicationRecord
 
   # The database also enforces unique names within each user's accounts.
   validates :name, presence: true, uniqueness: { scope: :user_id }
+  # Existing accounts remain nullable until the separate type backfill slice.
+  validates :account_type, inclusion: { in: %w[checking savings credit] }, allow_nil: true
+  validates :account_type, presence: true, on: :create
   # A debit that would overdraw the account fails this validation.
   validates :balance, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: UsdAmount::MAX }
 end

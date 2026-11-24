@@ -8,7 +8,7 @@ RSpec.describe PostTransaction do
 
   it "applies concurrent credits to the latest locked balance" do
     workers = []
-    account = users(:alex).accounts.create!(name: "Concurrent account")
+    account = users(:alex).accounts.create!(name: "Concurrent account", account_type: "checking")
     copies = [Account.find(account.id), Account.find(account.id)]
 
     copies.zip(%w[0.10 0.20]).each do |copy, amount|
