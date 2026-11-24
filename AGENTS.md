@@ -9,6 +9,7 @@
 ## Agent Trace Mode
 
 - At the start of a session, initialize a trace log with `mkdir -p .agent && touch .agent/trace.log`.
+- At the start of each user request, check the trace size with `wc -c < .agent/trace.log`. If it exceeds 1 MiB (1,048,576 bytes), clear it in place with `: > .agent/trace.log` before appending new output. Keeping the file in place lets `tail -f` stay attached.
 - Before running significant commands, remind the user to watch output with `tail -f .agent/trace.log` in their terminal.
 - For command execution, mirror output to the trace log using `2>&1 | tee -a .agent/trace.log` when practical.
 
