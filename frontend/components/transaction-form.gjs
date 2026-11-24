@@ -43,8 +43,8 @@ export default class TransactionForm extends Component {
         <label>
           Type
           <select name="direction">
-            <option value="credit">Credit</option>
-            <option value="debit">Debit</option>
+            <option value="credit">Deposit</option>
+            <option value="debit">Withdrawal</option>
           </select>
         </label>
         <label>
