@@ -12464,3 +12464,70 @@ Completed 200 OK in 26ms (Views: 2.4ms | ActiveRecord: 3.6ms (2 queries, 0 cache
 Finished in 0.49384 seconds (files took 2.36 seconds to load)
 12 examples, 0 failures
 
+.......................
+
+Finished in 0.92842 seconds (files took 2.44 seconds to load)
+23 examples, 0 failures
+
+..........................
+
+Finished in 0.81413 seconds (files took 2.4 seconds to load)
+26 examples, 0 failures
+
+.............................
+
+Finished in 0.91403 seconds (files took 2.29 seconds to load)
+29 examples, 0 failures
+
+............F................
+
+Failures:
+
+  1) Api::UsersController rejects a mismatched ID even when the email matches
+     Failure/Error: expect(response).to have_http_status(:forbidden)
+       expected the response to have status code :forbidden (403) but it was :ok (200)
+     # ./spec/controllers/users_controller_spec.rb:31:in 'block (2 levels) in <top (required)>'
+
+Finished in 1.05 seconds (files took 2.51 seconds to load)
+29 examples, 1 failure
+
+Failed examples:
+
+rspec ./spec/controllers/users_controller_spec.rb:28 # Api::UsersController rejects a mismatched ID even when the email matches
+
+.............................
+
+Finished in 1.01 seconds (files took 2.15 seconds to load)
+29 examples, 0 failures
+
+..............F................
+
+Failures:
+
+  1) Api::UsersController rejects a mismatched email when no ID is supplied
+     Failure/Error: expect(response).to have_http_status(:forbidden)
+       expected the response to have status code :forbidden (403) but it was :ok (200)
+     # ./spec/controllers/users_controller_spec.rb:45:in 'block (2 levels) in <top (required)>'
+
+Finished in 1.17 seconds (files took 1.88 seconds to load)
+31 examples, 1 failure
+
+Failed examples:
+
+rspec ./spec/controllers/users_controller_spec.rb:42 # Api::UsersController rejects a mismatched email when no ID is supplied
+
+...............................
+
+Finished in 1.08 seconds (files took 2.94 seconds to load)
+31 examples, 0 failures
+
+...............................
+
+Finished in 1.07 seconds (files took 2.37 seconds to load)
+31 examples, 0 failures
+
+...............................
+
+Finished in 0.95442 seconds (files took 2.36 seconds to load)
+31 examples, 0 failures
+
