@@ -11274,3 +11274,1193 @@ added 1315 packages in 16s
 235 packages are looking for funding
   run `npm fund` for details
 Rolldown loaded on v22.23.5 darwin x64
+Found '/Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/.nvmrc' with version <22>
+Now using node v22.23.5 (npm v10.9.9)
+
+> accounts-dashboard@0.0.0 build
+> vite build
+
+vite v8.3.8 building client environment for production...
+Building
+Environment: production
+building... 
+cleaning up
+cleaning up...
+Built project successfully. Stored in "/Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/tmp/compat-prebuild".
+transforming...
+<script src="/@embroider/virtual/vendor.js"> in "/index.html" can't be bundled without type="module" attribute
+
+/@embroider/virtual/app.css doesn't exist at build time, it will remain unchanged to be resolved at runtime
+✓ 292 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/@embroider/virtual/vendor.js           0.31 kB
+dist/index.html                             1.23 kB │ gzip:   0.64 kB
+dist/ember-welcome-page/construction.png   91.11 kB
+dist/@embroider/virtual/vendor.css          0.00 kB │ gzip:   0.02 kB
+dist/@embroider/virtual/app.css             0.11 kB │ gzip:   0.12 kB
+dist/assets/main-BTReddWu.css               4.05 kB │ gzip:   1.17 kB
+dist/assets/rolldown-runtime-BlsbPO0-.js    0.72 kB │ gzip:   0.43 kB
+dist/assets/modules-4-12-DHVqxYWg.js       19.43 kB │ gzip:   7.45 kB
+dist/assets/main-I1CIVsnm.js              556.01 kB │ gzip: 169.45 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 21.48s
+[33m[PLUGIN_TIMINGS] [0mJavaScript callbacks ran for 16.3s of this 16.3s build (100%).
+3 callbacks are listed without a time. Their calls overlapped, so the time inside one call includes work from other calls. To find their cost, profile the build with `node --cpu-prof`:
+  - plugin embroider-resolver resolveId (1110 calls)
+  - plugin babel transform (289 calls)
+  - plugin vite:terser renderChunk (3 calls)
+See https://rolldown.rs/reference/InputOptions.checks#bundlertimings for more details.
+
+Starting frontend (Node + Vite)...
+== nvm use ==
+Found '/Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/.nvmrc' with version <22>
+Now using node v22.23.5 (npm v10.9.9)
+== node -v ==
+v22.23.5
+== npm -v ==
+10.9.9
+== npm ci ==
+Verified launcher selected v22.23.5 for npm ci
+== npm start ==
+Frontend: http://localhost:4200
+Verified launcher selected v22.23.5 for npm start -- --host localhost
+file deleted CHANGELOG.md
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.1f678a0b3e85c7cfccdebd719db1d75d.log
+
+file deleted commands/index.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.81608bad31dda4947e6e58290d81a8b3.log
+
+file deleted commands
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.c5c66ce3f1b68afaca5ef0885bd5c9fc.log
+
+file deleted node_modules/semver/LICENSE
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.6063fccc51b91adfb712254af7414870.log
+
+file deleted src/addon/runtime.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.2ac6faaeae9631f040e047acacbd3ffb.log
+
+file deleted src/addon
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/@ember/optional-features
+
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.70a18d90263d62a4bcc4cc5ab041eda8.log
+
+file deleted node_modules/semver/bin/semver.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/@ember/optional-features
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.58dfdf90715ccd101dc23dec10a0598f.log
+
+file deleted node_modules/semver/bin
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/@ember/optional-features
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.dd814fb7062a65c8e9429b27545dc293.log
+
+file added node_modules
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.569de5bf43cac8f5c8044c86595e9894.log
+
+file added src
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.2d3fa9944d49908c47cae010fa7b05b1.log
+
+file added node_modules/semver/range.bnf
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.40c7a04508c97a834677a60ec81a88dd.log
+
+file added src/babel/app-ember-satisfies.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.219a0d726990a623deba20aac5af859d.log
+
+file changed node_modules/semver/range.bnf
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.219a0d726990a623deba20aac5af859d.log
+
+file added config
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.219a0d726990a623deba20aac5af859d.log
+
+file added node_modules/semver/functions/cmp.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.219a0d726990a623deba20aac5af859d.log
+
+file changed src/glimmer/app-ember-satisfies.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.219a0d726990a623deba20aac5af859d.log
+
+file added node_modules/semver/classes/comparator.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.4d2312e7745264694cae104d211cbf41.log
+
+file changed node_modules/semver/classes/comparator.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.b4da3a0db3e522e6ed3992fc7a45440e.log
+
+file added src/babel.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.c78221161ef914bb5e7dfc91325dee1f.log
+
+file added node_modules/semver/internal/debug.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.269bd8d36afefd8d811aea0e2e99ef1d.log
+
+file added src/babel/each.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+file added src/vendor/embroider-macros-test-support.js
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.231b0edbad9600919d34d5c016c6e489.log
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.7f25cf02dad72733083572bfe546f153.log
+
+file added src/babel/evaluate-json.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.28c5045ceec9f224f76b03009464297e.log
+
+file added node_modules/semver/functions/lte.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.7f25cf02dad72733083572bfe546f153.log
+
+file added node_modules/semver/functions/major.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.01e4619a87a0ffb01964e96601635dd8.log
+
+file added src/glimmer/get-config.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.a300c7c74f3d5959ad0028a61bc1aaa4.log
+
+file added src/index.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.2d0ee3c41a4d812d5c73cfe05afd950a.log
+
+file added node_modules/semver/classes/range.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.64871f98560b2cbae9e852215f604f29.log
+
+file added node_modules/semver/ranges/simplify.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+file added src/addon/runtime.js
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.6265594ccf84807698577e40669503e3.log
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.25527f26435dbb01cc24fd26d546c581.log
+
+file added src/glimmer/ast-transform.js.map
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.dc2ad5e41af13c539953a704fe24cb8a.log
+
+file added src/babel/error.js.map
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.c27fe002e3267646095d38a0a2a4f159.log
+
+file added src/glimmer/evaluate.js.map
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.dc2ad5e41af13c539953a704fe24cb8a.log
+
+file added src/glimmer/get-config.js.map
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.c8c15fd20da9be2fc954bce027030354.log
+
+file added src/babel/macros-babel-plugin.js.map
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.449a1dfc178a6897398bc88d4f3295f6.log
+
+file added src/glimmer/dependency-satisfies.d.ts
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.19eb8de5ca92d247c24fc71272a8a8f4.log
+
+file added src/glimmer/macro-condition.d.ts
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.0745ff3b148b6bd3c263f6d07ce71e5e.log
+
+file changed node_modules/semver/bin/semver.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.b80c02d58adf4daa1ddac017795c0a3f.log
+
+Started GET "/api/me" for 127.0.0.1 at 2026-11-23 23:07:12 -0600
+Processing by Api::UsersController#show as JSON
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'alex@example.test' LIMIT 1 /*action='show',application='Backend',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:38:in 'ApplicationController#load_demo_user'
+Completed 200 OK in 89ms (Views: 1.0ms | ActiveRecord: 17.7ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/accounts" for 127.0.0.1 at 2026-11-23 23:07:13 -0600
+Processing by Api::AccountsController#index as JSON
+  [1m[36mUser Load (2.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'alex@example.test' LIMIT 1 /*action='index',application='Backend',controller='accounts'*/[0m
+  ↳ app/controllers/application_controller.rb:38:in 'ApplicationController#load_demo_user'
+  [1m[36mAccount Load (2.0ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" WHERE "accounts"."user_id" = 1 ORDER BY "accounts"."name" ASC, "accounts"."id" ASC /*action='index',application='Backend',controller='accounts'*/[0m
+  ↳ app/controllers/api/accounts_controller.rb:8:in 'Enumerable#map'
+Completed 200 OK in 16ms (Views: 0.2ms | ActiveRecord: 4.3ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+11:07:17 PM [vite] Internal server error: ENOENT: no such file or directory, lstat '/Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app'
+      at Object.realpathSync (node:fs:2801:29)
+      at _walkSync (/Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/walk-sync/index.js:108:25)
+      at walkSync (/Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/walk-sync/index.js:20:12)
+      at getAppFiles (/Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/@embroider/core/dist/src/virtual-entrypoint.js:263:43)
+      at renderEntrypoint (/Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/@embroider/core/dist/src/virtual-entrypoint.js:44:8)
+      at virtualContent (/Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/@embroider/core/dist/src/virtual-content.js:24:62)
+      at LoadPluginContext.load (file:///Users/ijeriomitogun/Projects/TypescriptProjects/Upstart%20Interview/node_modules/@embroider/vite/dist/src/resolver.js:139:40)
+      at EnvironmentPluginContainer.load (file:///Users/ijeriomitogun/Projects/TypescriptProjects/Upstart%20Interview/node_modules/vite/dist/node/chunks/node.js:8594:56)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async loadAndTransform (file:///Users/ijeriomitogun/Projects/TypescriptProjects/Upstart%20Interview/node_modules/vite/dist/node/chunks/node.js:20065:21)
+      at async viteTransformMiddleware (file:///Users/ijeriomitogun/Projects/TypescriptProjects/Upstart%20Interview/node_modules/vite/dist/node/chunks/node.js:20332:20)
+Starting frontend (Node + Vite)...
+== nvm use ==
+Found '/Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/.nvmrc' with version <22>
+Now using node v22.23.5 (npm v10.9.9)
+== node -v ==
+v22.23.5
+== npm -v ==
+10.9.9
+== npm ci ==
+file deleted CHANGELOG.md
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.bc889a4b79bc2952949782d7ea47b870.log
+
+file deleted commands/index.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.1c850eb3b0598520b02149633bf8c1db.log
+
+file deleted commands
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.729e2bd2581da32e2b78a7a02fa64301.log
+
+file deleted src/babel/app-ember-satisfies.d.ts
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.edaee8d10df01c045bba691816276b42.log
+
+file deleted src/glimmer
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/@ember/optional-features
+
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.538f3c5e9c680875c6f216ed0cbc4a04.log
+
+file deleted src
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/@ember/optional-features
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.584e6e44dcebef345eba0660e97f2f23.log
+
+file deleted node_modules/semver/bin
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/@ember/optional-features
+
+ENOENT: no such file or directory
+
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.b0c5339a9a5b369bbfdda4b10d1855ae.log
+
+file deleted node_modules
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/@ember/optional-features
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.efdd38c0760c8d8d83ff0af6c72550d1.log
+
+file added node_modules
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.07b9029f770447d7836c934d9646a0ad.log
+
+file added src
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.879b970cac87a65d1404e3ba50abf4b7.log
+
+file added node_modules/semver/LICENSE
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.b8883d09e8180fc90ca9b6245040c78a.log
+
+file added node_modules/semver/range.bnf
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.4dd0272e05dffa8bef24e3af6847dcc5.log
+
+file added features/application-template-wrapper.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.39a00fb87e12cc52c60515c5446a53f8.log
+
+file added node_modules/semver/functions/clean.js
+
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.df1e31626a8e47c2ce458e14ccd037c6.log
+
+npm warn deprecated source-map-url@0.4.1: See https://github.com/lydell/source-map-url#deprecated
+file changed node_modules/semver/functions/clean.js
+
+npm warn deprecated raw-body@1.1.7: No longer maintained. Please upgrade to a stable version.
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.ff5352b451679caed3761b5263c44a6e.log
+
+file added node_modules/semver/functions/cmp.js
+
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.0daa92a5a5ab1280c53e490c452dc985.log
+
+npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+file added commands/index.js
+
+npm warn deprecated source-map-url@0.3.0: See https://github.com/lydell/source-map-url#deprecated
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.0dd7bce6ced3340c245929217a059d2a.log
+
+file changed src/glimmer/ast-transform.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.054d4722ac04a08912a2878cac329bf5.log
+
+file changed node_modules/semver/functions/compare-build.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.95b9c44273f89662d424cb501e1b8a63.log
+
+file added node_modules/semver/functions/compare.js
+
+npm warn deprecated charm@1.0.2: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.8365cd023af8a8725cc1220ef67430b6.log
+
+file added node_modules/semver/internal/debug.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (Funnel)
+
+You specified a `"srcDir": src/addon` which does not exist and did not specify `"allowEmpty": true`.
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.5423e735c5b6b378c9ce794568ac48e4.log
+
+file added node_modules/semver/functions/eq.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.c9fd97b869b3d2b423230a741b1e2aae.log
+
+file changed node_modules/semver/functions/gte.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.ae3bf628ca14372be9fc5988f211bf88.log
+
+file added node_modules/semver/classes/index.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+file added node_modules/semver/internal/lrucache.js
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.e03ed18715c13ccddeb9fbc16b86b508.log
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.c9fd97b869b3d2b423230a741b1e2aae.log
+
+file added node_modules/semver/ranges/min-satisfying.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.c7016f03f4be707be8d851e378cdd142.log
+
+file added node_modules/semver/functions/minor.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.77ebe4458dd14a75c9f4d65136c38c25.log
+
+file added node_modules/semver/functions/parse.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.24cd0011702e707599ebea94dbea9907.log
+
+file added src/glimmer/macro-condition.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.1d910e3890ef6554e5fbcf83f87261f8.log
+
+file changed src/glimmer/macro-condition.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+file added node_modules/semver/bin/semver.js
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.e11fb24be136a71e9c4478a5b923d924.log
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.1d910e3890ef6554e5fbcf83f87261f8.log
+
+file added node_modules/semver/README.md
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.ebed8335605468245f51847bbc0ad294.log
+
+file added src/babel/each.js.map
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.ebed8335605468245f51847bbc0ad294.log
+
+file added src/glimmer/evaluate.js.map
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.1d910e3890ef6554e5fbcf83f87261f8.log
+
+file added src/glimmer/literal.js.map
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.1ceacb429b706099f6e849a1786ddd4c.log
+
+file added src/babel/module-exists.js.map
+
+npm warn deprecated glob@9.3.5: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.3487f607643b256e294455ab9392800e.log
+
+file added src/glimmer/dependency-satisfies.d.ts
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.18d0ab3e34a3beee2196199a34ec89a4.log
+
+file added src/glimmer/macro-condition.d.ts
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.2a9e38307828e74f332e6b8712862150.log
+
+npm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+file changed node_modules/semver/bin/semver.js
+
+building... [BroccoliMergeTrees > MergeTrees:readInput]
+
+Build Error (WatchedDir) in /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/app/styles
+
+
+ENOENT: no such file or directory
+
+
+
+Stack Trace and Error Report: /var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/error.dump.fbe2b31745ea697cf701b50de5fe37e4.log
+
+
+added 1315 packages, and audited 1316 packages in 14s
+
+235 packages are looking for funding
+  run `npm fund` for details
+
+23 vulnerabilities (10 low, 12 moderate, 1 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+== npm start ==
+Frontend: http://localhost:4200
+
+> accounts-dashboard@0.0.0 start
+> vite --host localhost
+
+11:07:46 PM [vite] Internal server error: /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/.embroider/content-for.json: ENOENT: no such file or directory, open '/Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/.embroider/content-for.json'
+      at Object.openSync (node:fs:560:18)
+      at Object.readFileSync (node:fs:444:35)
+      at readFileSync (/Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/jsonfile/index.js:50:22)
+      at BasicMinimalPluginContext.transformIndexHtml (file:///Users/ijeriomitogun/Projects/TypescriptProjects/Upstart%20Interview/node_modules/@embroider/vite/dist/src/content-for.js:11:26)
+      at applyHtmlTransforms (file:///Users/ijeriomitogun/Projects/TypescriptProjects/Upstart%20Interview/node_modules/vite/dist/node/chunks/node.js:32313:26)
+      at async viteIndexHtmlMiddleware (file:///Users/ijeriomitogun/Projects/TypescriptProjects/Upstart%20Interview/node_modules/vite/dist/node/chunks/node.js:18279:24)
+11:07:48 PM [vite] Internal server error: /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/.embroider/content-for.json: ENOENT: no such file or directory, open '/Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/.embroider/content-for.json'
+      at Object.openSync (node:fs:560:18)
+      at Object.readFileSync (node:fs:444:35)
+      at readFileSync (/Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/node_modules/jsonfile/index.js:50:22)
+      at BasicMinimalPluginContext.transformIndexHtml (file:///Users/ijeriomitogun/Projects/TypescriptProjects/Upstart%20Interview/node_modules/@embroider/vite/dist/src/content-for.js:11:26)
+      at applyHtmlTransforms (file:///Users/ijeriomitogun/Projects/TypescriptProjects/Upstart%20Interview/node_modules/vite/dist/node/chunks/node.js:32313:26)
+      at async viteIndexHtmlMiddleware (file:///Users/ijeriomitogun/Projects/TypescriptProjects/Upstart%20Interview/node_modules/vite/dist/node/chunks/node.js:18279:24)
+- Building
+
+- Building
+
+Environment: development
+
+- building... 
+
+
+
+Build successful (782ms)
+
+
+Slowest Nodes (totalTime >= 5%) | Total (avg)
+-+-
+Babel: @embroider/macros (1) | 697ms
+
+
+
+  VITE v8.3.8  ready in 7549 ms
+
+  ➜  Local:   http://localhost:4200/
+  ➜  press h + enter to show help
+11:07:52 PM [vite] (client) [optimizer] bundling dependencies...
+11:07:56 PM [vite] Internal server error: No matching HTML proxy module found from /Users/ijeriomitogun/Projects/TypescriptProjects/Upstart Interview/index.html?html-proxy&index=0.js
+      at LoadPluginContext.handler (file:///Users/ijeriomitogun/Projects/TypescriptProjects/Upstart%20Interview/node_modules/vite/dist/node/chunks/node.js:31668:17)
+      at EnvironmentPluginContainer.load (file:///Users/ijeriomitogun/Projects/TypescriptProjects/Upstart%20Interview/node_modules/vite/dist/node/chunks/node.js:8594:56)
+      at async loadAndTransform (file:///Users/ijeriomitogun/Projects/TypescriptProjects/Upstart%20Interview/node_modules/vite/dist/node/chunks/node.js:20065:21)
+Started GET "/api/me" for 127.0.0.1 at 2026-11-23 23:08:12 -0600
+Processing by Api::UsersController#show as JSON
+  [1m[36mUser Load (2.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'alex@example.test' LIMIT 1 /*action='show',application='Backend',controller='users'*/[0m
+  ↳ app/controllers/application_controller.rb:38:in 'ApplicationController#load_demo_user'
+Completed 200 OK in 5ms (Views: 0.1ms | ActiveRecord: 2.2ms (1 query, 0 cached) | GC: 0.0ms)
+
+
+Started GET "/api/accounts" for 127.0.0.1 at 2026-11-23 23:08:12 -0600
+Processing by Api::AccountsController#index as JSON
+  [1m[36mUser Load (3.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'alex@example.test' LIMIT 1 /*action='index',application='Backend',controller='accounts'*/[0m
+  ↳ app/controllers/application_controller.rb:38:in 'ApplicationController#load_demo_user'
+  [1m[36mAccount Load (2.2ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" WHERE "accounts"."user_id" = 1 ORDER BY "accounts"."name" ASC, "accounts"."id" ASC /*action='index',application='Backend',controller='accounts'*/[0m
+  ↳ app/controllers/api/accounts_controller.rb:8:in 'Enumerable#map'
+Completed 200 OK in 10ms (Views: 0.3ms | ActiveRecord: 5.2ms (2 queries, 0 cached) | GC: 0.0ms)
+
+
+Found no changes, using resolution from the lockfile
+The Gemfile's dependencies are satisfied
+`/Users/ijeriomitogun` is not writable.
+Bundler will use `/var/folders/kr/p1hx52vs77dd1j9djhl7m8300000gn/T/bundler20261123-96152-5pet4w96152' as your home directory temporarily.
+
+An error occurred while loading ./spec/requests/accounts_api_spec.rb.
+Failure/Error: ActiveRecord::Migration.maintain_test_schema!
+
+ActiveRecord::DatabaseConnectionError:
+  There is an issue connecting with your hostname: 127.0.0.1.
+
+  Please check your database configuration and ensure there is a valid connection to your database.
+# ./spec/rails_helper.rb:7:in '<top (required)>'
+# ./spec/requests/accounts_api_spec.rb:1:in 'Kernel#require_relative'
+# ./spec/requests/accounts_api_spec.rb:1:in '<top (required)>'
+# ------------------
+# --- Caused by: ---
+# PG::ConnectionBad:
+#   connection to server at "127.0.0.1", port 5433 failed: Operation not permitted
+#   	Is the server running on that host and accepting TCP/IP connections?
+#   ./spec/rails_helper.rb:7:in '<top (required)>'
+Run options: include {full_description: /lists\ only/}
+
+All examples were filtered out
+
+
+Finished in 0.00009 seconds (files took 3.11 seconds to load)
+0 examples, 0 failures, 1 error occurred outside of examples
+
+..........
+
+Finished in 0.63468 seconds (files took 2.62 seconds to load)
+10 examples, 0 failures
+
+............
+
+Finished in 0.98953 seconds (files took 2.6 seconds to load)
+12 examples, 0 failures
+
+Started GET "/api/accounts/3" for 127.0.0.1 at 2026-11-23 23:17:23 -0600
+Processing by Api::AccountsController#show as JSON
+  Parameters: {"id" => "3"}
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'alex@example.test' LIMIT 1 /*action='show',application='Backend',controller='accounts'*/[0m
+  ↳ app/controllers/application_controller.rb:38:in 'ApplicationController#load_demo_user'
+  [1m[36mAccount Load (1.9ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" WHERE "accounts"."user_id" = 1 AND "accounts"."id" = 3 LIMIT 1 /*action='show',application='Backend',controller='accounts'*/[0m
+  ↳ app/controllers/api/accounts_controller.rb:14:in 'Api::AccountsController#show'
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mBEGIN /*action='show',application='Backend',controller='accounts'*/[0m
+  ↳ app/services/account_summary.rb:5:in 'AccountSummary.call'
+  [1m[36mAccount Load (14.1ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" WHERE "accounts"."id" = 3 LIMIT 1 FOR SHARE /*action='show',application='Backend',controller='accounts'*/[0m
+  ↳ app/services/account_summary.rb:5:in 'AccountSummary.call'
+  [1m[36mTransaction Sum (2.5ms)[0m  [1m[34mSELECT SUM("transactions"."amount") AS "sum_amount", "transactions"."direction" AS "transactions_direction" FROM "transactions" WHERE "transactions"."account_id" = 3 AND "transactions"."account_id" IN (SELECT "accounts"."id" FROM "accounts" WHERE "accounts"."user_id" = 1) GROUP BY "transactions"."direction" /*action='show',application='Backend',controller='accounts'*/[0m
+  ↳ app/services/account_summary.rb:6:in 'block in AccountSummary.call'
+  [1m[36mTransaction Load (2.5ms)[0m  [1m[34mSELECT "transactions".* FROM "transactions" WHERE "transactions"."account_id" = 3 AND "transactions"."account_id" IN (SELECT "accounts"."id" FROM "accounts" WHERE "accounts"."user_id" = 1) ORDER BY "transactions"."created_at" DESC, "transactions"."id" DESC /*action='show',application='Backend',controller='accounts'*/[0m
+  ↳ app/services/account_summary.rb:13:in 'Enumerable#map'
+  [1m[36mTRANSACTION (2.1ms)[0m  [1m[35mCOMMIT /*action='show',application='Backend',controller='accounts'*/[0m
+  ↳ app/services/account_summary.rb:5:in 'AccountSummary.call'
+Completed 200 OK in 179ms (Views: 0.2ms | ActiveRecord: 41.5ms (5 queries, 0 cached) | GC: 99.7ms)
+
+
+Started GET "/api/accounts" for 127.0.0.1 at 2026-11-23 23:17:27 -0600
+Processing by Api::AccountsController#index as JSON
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = 'alex@example.test' LIMIT 1 /*action='index',application='Backend',controller='accounts'*/[0m
+  ↳ app/controllers/application_controller.rb:38:in 'ApplicationController#load_demo_user'
+  [1m[36mAccount Load (1.9ms)[0m  [1m[34mSELECT "accounts".* FROM "accounts" WHERE "accounts"."user_id" = 1 ORDER BY "accounts"."name" ASC, "accounts"."id" ASC /*action='index',application='Backend',controller='accounts'*/[0m
+  ↳ app/controllers/api/accounts_controller.rb:8:in 'Enumerable#map'
+Completed 200 OK in 26ms (Views: 2.4ms | ActiveRecord: 3.6ms (2 queries, 0 cached) | GC: 16.8ms)
+
+
+............
+
+Finished in 0.49384 seconds (files took 2.36 seconds to load)
+12 examples, 0 failures
+

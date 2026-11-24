@@ -8,11 +8,14 @@ class PostTransaction
     # requires_new also gives this operation its own savepoint if the caller
     # already has a transaction open, so a rescued failure rolls back both writes.
     account.with_lock(requires_new: true) do
+      # create! and update! raise on validation failure so Rails rolls back both
+      # writes, including when a debit would make the balance negative.
       transaction = account.transactions.create!(
         direction: attributes[:direction], amount: amount, description: attributes[:description]
       )
       new_balance = transaction.direction == "credit" ? account.balance + amount : account.balance - amount
       account.update!(balance: new_balance)
+      # Ruby returns the value of the block's last expression.
       transaction
     end
   end

@@ -13,7 +13,7 @@ If you already have a local database, run `docker volume ls --filter label=com.d
 1. Open the workspace root and run the following commands in its terminal.
 
    ```sh
-   nvm use || nvm install
+   nvm install
    docker compose up -d --wait db
    npm ci
    ```
