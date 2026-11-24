@@ -1,6 +1,6 @@
 import '@warp-drive/ember/install';
-import Application from 'battery-dashboard/app';
-import config from 'battery-dashboard/config/environment';
+import Application from 'accounts-dashboard/app';
+import config from 'accounts-dashboard/config/environment';
 import * as QUnit from 'qunit';
 import { setApplication } from '@ember/test-helpers';
 import { setup } from 'qunit-dom';

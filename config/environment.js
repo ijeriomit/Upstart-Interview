@@ -2,7 +2,7 @@
 
 module.exports = function (environment) {
   const ENV = {
-    modulePrefix: 'battery-dashboard',
+    modulePrefix: 'accounts-dashboard',
     environment,
     rootURL: '/',
     locationType: 'history',

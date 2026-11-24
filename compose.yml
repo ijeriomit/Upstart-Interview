@@ -1,5 +1,5 @@
-# Keep the existing database volume when the workspace folder is renamed.
-name: battery-dashboard
+# Keep the database volume stable when the workspace folder is renamed.
+name: fieldwork
 
 services:
   db:

@@ -38,7 +38,7 @@ export default class TransactionForm extends Component {
   }
 
   <template>
-    <form class="fieldwork-form" {{on "submit" this.submit}}>
+    <form class="accounts-dashboard-form" {{on "submit" this.submit}}>
       <fieldset disabled={{this.isSaving}}>
         <label>
           Type
@@ -59,21 +59,24 @@ export default class TransactionForm extends Component {
         </label>
         <label>
           Description
-          <span class="fieldwork-optional">(optional)</span>
+          <span class="accounts-dashboard-optional">(optional)</span>
           <input name="description" maxlength="120" />
         </label>
-        <button class="fieldwork-button" type="submit">
+        <button class="accounts-dashboard-button" type="submit">
           {{if this.isSaving "Recording…" "Record transaction"}}
         </button>
       </fieldset>
       {{#if this.error}}
         <p
           role="alert"
-          class="fieldwork-feedback fieldwork-error"
+          class="accounts-dashboard-feedback accounts-dashboard-error"
         >{{this.error}}</p>
       {{/if}}
       {{#if this.success}}
-        <p role="status" class="fieldwork-feedback">{{this.success}}</p>
+        <p
+          role="status"
+          class="accounts-dashboard-feedback"
+        >{{this.success}}</p>
       {{/if}}
     </form>
   </template>

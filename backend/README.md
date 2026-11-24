@@ -1,3 +1,3 @@
-# Fieldwork Rails API
+# Accounts Dashboard Rails API
 
-See the [Fieldwork setup and walkthrough](../README.md) for PostgreSQL, startup, tests, and request examples.
+See the [Accounts Dashboard setup and walkthrough](../README.md) for PostgreSQL, startup, tests, and request examples.

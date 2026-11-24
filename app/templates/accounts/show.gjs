@@ -14,40 +14,40 @@ function signedUsd(direction, amount) {
 }
 
 <template>
-  {{! Read the controller's model so a save updates the rendered summary. }}
-  {{#let @controller.model as |summary|}}
-    {{pageTitle summary.account.name}}
-    <LinkTo @route="accounts.index" class="fieldwork-back-link">All accounts</LinkTo>
-    <h1>{{summary.account.name}}</h1>
+  {{#let @model as |account|}}
+    {{pageTitle account.name}}
+    <LinkTo @route="accounts.index" class="accounts-dashboard-back-link">All
+      accounts</LinkTo>
+    <h1>{{account.name}}</h1>
 
-    <dl class="fieldwork-summary">
-      <div class="fieldwork-card fieldwork-balance">
+    <dl class="accounts-dashboard-summary">
+      <div class="accounts-dashboard-card accounts-dashboard-balance">
         <dt>Current balance</dt>
-        <dd class="fieldwork-amount" data-test-balance>{{usd
-            summary.account.balance
+        <dd class="accounts-dashboard-amount" data-test-balance>{{usd
+            account.balance
           }}</dd>
       </div>
-      <div class="fieldwork-card">
+      <div class="accounts-dashboard-card">
         <dt>Total credits</dt>
-        <dd class="fieldwork-amount">{{usd summary.totalCredits}}</dd>
+        <dd class="accounts-dashboard-amount">{{usd account.totalCredits}}</dd>
       </div>
-      <div class="fieldwork-card">
+      <div class="accounts-dashboard-card">
         <dt>Total debits</dt>
-        <dd class="fieldwork-amount">{{usd summary.totalDebits}}</dd>
+        <dd class="accounts-dashboard-amount">{{usd account.totalDebits}}</dd>
       </div>
     </dl>
 
-    <div class="fieldwork-detail-grid">
+    <div class="accounts-dashboard-detail-grid">
       <section
-        class="fieldwork-card"
+        class="accounts-dashboard-card"
         aria-labelledby="transaction-history-heading"
       >
         <h2 id="transaction-history-heading">Transaction history</h2>
-        <ul class="fieldwork-history">
-          {{#each summary.transactions as |entry|}}
+        <ul class="accounts-dashboard-history">
+          {{#each account.transactions as |entry|}}
             <li data-test-transaction>
               <div>
-                <p class="fieldwork-entry-name">{{if
+                <p class="accounts-dashboard-entry-name">{{if
                     entry.description
                     entry.description
                     entry.direction
@@ -59,12 +59,12 @@ function signedUsd(direction, amount) {
               <strong>{{signedUsd entry.direction entry.amount}}</strong>
             </li>
           {{else}}
-            <li class="fieldwork-history-empty">No transactions yet.</li>
+            <li class="accounts-dashboard-history-empty">No transactions yet.</li>
           {{/each}}
         </ul>
       </section>
       <section
-        class="fieldwork-card"
+        class="accounts-dashboard-card"
         aria-labelledby="transaction-form-heading"
       >
         <h2 id="transaction-form-heading">New transaction</h2>

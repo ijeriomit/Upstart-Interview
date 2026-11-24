@@ -1,8 +1,8 @@
 {
-  "name": "battery-dashboard",
+  "name": "accounts-dashboard",
   "version": "0.0.0",
   "private": true,
-  "description": "Small description for battery-dashboard goes here",
+  "description": "Interview starter for managing accounts and recording transactions",
   "repository": "",
   "license": "MIT",
   "author": "",
@@ -27,7 +27,11 @@
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
     "start": "vite",
-    "test": "vite build --mode development && testem ci --port 0"
+    "start:backend": "./scripts/start-backend.sh",
+    "start:frontend": "./scripts/start-frontend.sh",
+    "start:all": "./scripts/start-all.sh",
+    "test": "vite build --mode development && testem --test_page tests/index.html",
+    "test:ci": "vite build --mode development && testem ci --port 0"
   },
   "devDependencies": {
     "@babel/core": "^7.29.7",

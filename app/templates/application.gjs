@@ -1,7 +1,7 @@
 import { pageTitle } from 'ember-page-title';
 
 <template>
-  {{pageTitle "Fieldwork"}}
+  {{pageTitle "Accounts Dashboard"}}
 
   {{outlet}}
 </template>

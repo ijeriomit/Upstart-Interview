@@ -1,21 +1,35 @@
-import Service from '@ember/service';
+import Service, { service } from '@ember/service';
 import { waitFor } from '@ember/test-waiters';
+import {
+  normalizeAccountList,
+  normalizeAccountSummary,
+  normalizeCurrentUser,
+} from '../serializers/accounts-api';
+
+const MAX_ACCOUNT_READ_ATTEMPTS = 3;
 
 export default class AccountsApiService extends Service {
+  @service store;
+  #writeRevision = 0;
+
   async getCurrentUser() {
-    return (await this.request('/me')).user;
+    const payload = await this.request('/me');
+    return this.store.push(normalizeCurrentUser(payload));
   }
 
-  async getAccounts() {
-    return (await this.request('/accounts')).accounts;
+  getAccounts() {
+    return this.#readAccountData('/accounts', normalizeAccountList);
   }
 
   getAccount(accountId) {
-    return this.request('/accounts/' + encodeURIComponent(accountId));
+    return this.#readAccountData(
+      '/accounts/' + encodeURIComponent(accountId),
+      normalizeAccountSummary,
+    );
   }
 
-  createTransaction(accountId, transaction) {
-    return this.request(
+  async createTransaction(accountId, transaction) {
+    const summary = await this.request(
       '/accounts/' + encodeURIComponent(accountId) + '/transactions',
       {
         method: 'POST',
@@ -23,6 +37,22 @@ export default class AccountsApiService extends Service {
         body: JSON.stringify({ transaction }),
       },
     );
+    this.#writeRevision += 1;
+    return this.store.push(normalizeAccountSummary(summary));
+  }
+
+  async #readAccountData(path, normalize) {
+    for (let attempt = 1; attempt <= MAX_ACCOUNT_READ_ATTEMPTS; attempt += 1) {
+      const revisionAtStart = this.#writeRevision;
+      const payload = await this.request(path);
+
+      // A transaction posted during this read may have updated the store.
+      if (revisionAtStart === this.#writeRevision) {
+        return this.store.push(normalize(payload));
+      }
+    }
+
+    throw new Error('Account data changed while loading. Try again.');
   }
 
   // The injected service centralizes HTTP behavior. A test waiter lets Ember

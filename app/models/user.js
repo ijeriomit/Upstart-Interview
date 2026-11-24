@@ -1,0 +1,6 @@
+import Model, { attr } from '@warp-drive/legacy/model';
+
+export default class UserModel extends Model {
+  @attr name;
+  @attr email;
+}
