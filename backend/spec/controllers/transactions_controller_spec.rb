@@ -7,6 +7,8 @@ RSpec.describe Api::TransactionsController, type: :controller do
 
   before do
     allow(controller).to receive(:current_user).and_return(users(:alex))
+    # Request specs exercise the CSRF middleware with real cookies and tokens.
+    allow(controller).to receive(:protect_against_forgery?).and_return(false)
   end
 
   it "creates a transaction for the account in the route" do

@@ -1,6 +1,6 @@
 module Api
   class UsersController < ApplicationController
-    # GET /api/me returns the identity loaded by ApplicationController.
+    # GET /api/me returns the identity from the authenticated session.
     # Check the supplied ID, or the supplied email when the ID is omitted.
     def show
       user_id = current_user.id.to_s

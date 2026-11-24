@@ -1,13 +1,17 @@
 class ApplicationController < ActionController::API
+  include ActionController::RequestForgeryProtection
   include Pundit::Authorization
 
   # Keep the request contract explicit. Rails otherwise wraps some flat JSON
   # bodies in a model key inferred from the controller name.
   wrap_parameters false
 
-  # Load the current user before each API action. Rendering an error in this
-  # callback ends the request before the action runs.
-  before_action :load_demo_user
+  # Check for a live session before checking the token on protected actions.
+  before_action :no_store
+  before_action :require_signed_in
+  self.allow_forgery_protection = true
+  self.forgery_protection_origin_check = true
+  protect_from_forgery with: :exception
 
   # Convert lookup, authorization, and validation exceptions into the same
   # JSON error format across controllers.
@@ -17,6 +21,10 @@ class ApplicationController < ActionController::API
 
   rescue_from Pundit::NotAuthorizedError do
     render_error(:forbidden, "forbidden", "You don't have access to this action.")
+  end
+
+  rescue_from ActionController::InvalidAuthenticityToken do
+    render_error(:forbidden, "invalid_csrf_token", "Your form token expired. Please try again.")
   end
 
   rescue_from ActionController::ParameterMissing, ActionDispatch::Http::Parameters::ParseError do
@@ -33,20 +41,20 @@ class ApplicationController < ActionController::API
 
   private
 
-  # attr_reader exposes @current_user through the current_user method that
-  # Pundit calls when constructing policies and scopes.
-  attr_reader :current_user
-
-  def load_demo_user
-    # The server selects the demo identity from its environment in development
-    # and test. With no loaded identity, the request receives a 401.
-    if Rails.env.development? || Rails.env.test?
-      @current_user = User.find_by(email: ENV.fetch("DEMO_USER_EMAIL", "alex@example.test"))
+  def current_user_session
+    if (session_id = session[:user_session_id])
+      @current_user_session ||= UserSession.active.includes(:user).find_by(id: session_id)
     end
+  end
 
+  def current_user
+    current_user_session&.user
+  end
+
+  def require_signed_in
     return if current_user
 
-    render_error(:unauthorized, "unauthorized", "No current user is configured.")
+    render_error(:unauthorized, "unauthorized", "Sign in to continue.")
   end
 
   def render_error(status, code, message)

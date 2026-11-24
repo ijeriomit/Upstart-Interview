@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_23_000200) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_24_000100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -33,7 +33,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_23_000200) do
     t.datetime "updated_at", null: false
     t.index ["account_id", "created_at", "id"], name: "index_transactions_on_account_id_and_created_at_and_id", order: { created_at: :desc, id: :desc }
     t.check_constraint "amount > 0::numeric AND amount <= 99999999999999999.99", name: "transactions_amount_in_range"
-    t.check_constraint "direction::text = ANY (ARRAY['credit'::character varying, 'debit'::character varying]::text[])", name: "transactions_direction_valid"
+    t.check_constraint "direction::text = ANY (ARRAY['credit'::character varying::text, 'debit'::character varying::text])", name: "transactions_direction_valid"
+  end
+
+  create_table "user_sessions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_sessions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -41,9 +48,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_23_000200) do
     t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password_digest"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "accounts", "users"
   add_foreign_key "transactions", "accounts"
+  add_foreign_key "user_sessions", "users"
 end

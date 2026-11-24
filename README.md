@@ -18,7 +18,7 @@ If you already have a local database, run `docker volume ls --filter label=com.d
    npm ci
    ```
 
-2. Start the Rails JSON API in another terminal.
+2. Start the Rails JSON API in another terminal. Set `DEMO_ALEX_PASSWORD` and `DEMO_JORDAN_PASSWORD` in that terminal to provision passwords for the local demo accounts.
 
    ```sh
    cd backend
@@ -32,7 +32,7 @@ If you already have a local database, run `docker volume ls --filter label=com.d
 
 Run `nvm use` before npm commands in a new terminal. If `npm ci` reports `EBADENGINE`, use `nvm install` to update Node 22 and rerun `npm ci`. Older Node versions can cause npm to skip the platform-specific Rolldown binding.
 
-Alex is the default identity. Run `DEMO_USER_EMAIL=jordan@example.test bin/rails server -b 127.0.0.1` from `backend/` to practice as Jordan. The demo user comes from server configuration in development and test.
+Open **Sign in** and use `alex@example.test` or `jordan@example.test` with the corresponding password. A fresh development database needs the demo password variables before it can create those users. Rerun `bin/rails db:seed` to fill in missing demo credentials while preserving existing passwords, accounts, and transactions.
 
 Use `docker compose stop db` to stop the database and keep its data.
 
@@ -47,12 +47,15 @@ Use `docker compose stop db` to stop the database and keep its data.
 
 | Method and path                       | Response                                                           |
 | ------------------------------------- | ------------------------------------------------------------------ |
-| `GET /api/me`                         | Current demo user                                                  |
+| `GET /api/csrf`                       | CSRF token for the current browser session                         |
+| `POST /api/session`                   | Signs in with `{ session: { email, password } }`                   |
+| `DELETE /api/session`                 | Revokes the session and returns HTTP `204`                         |
+| `GET /api/me`                         | Signed-in user                                                     |
 | `GET /api/accounts`                   | Accounts in the current user’s scope                               |
 | `GET /api/accounts/:id`               | Balance, credit/debit totals, and newest-first transaction history |
 | `POST /api/accounts/:id/transactions` | Updated summary with HTTP `201`                                    |
 
-Send `{"transaction":{"direction":"credit","amount":"12.34","description":"Practice deposit"}}` as JSON. Error responses include `error.code` and `error.message`. The API uses `400` for an invalid request shape, `401` for a missing current user, `403` for a denied action, `404` for a missing or out-of-scope record, and `422` for invalid amounts or failed validations.
+For API writes, send the session cookie and the value from `GET /api/csrf` in `X-CSRF-Token`. Fetch a fresh token after signing in or out. To post a transaction, send `{"transaction":{"direction":"credit","amount":"12.34","description":"Practice deposit"}}` as JSON. Error responses include `error.code` and `error.message`. The API uses `400` for an invalid request shape, `401` for missing or invalid credentials, `403` for a denied action, `404` for a missing or out-of-scope record, and `422` for invalid amounts or failed validations.
 
 Run `bundle exec rspec` from `backend/` to run the Rails request, policy, and service specs. From the workspace root, `npm test` opens Chrome and keeps the frontend results visible. Press Enter in Testem to rerun or `q` to quit. Use `npm run test:ci` for a headless run that exits when the tests finish.
 
