@@ -22,7 +22,7 @@ module Api
         new_user
       end
 
-      render json: { user: { id: user.id.to_s, name: user.name, email: user.email } }, status: :created
+      render json: { user: UserJson.call(user) }, status: :created
     end
 
     # GET /api/me returns the identity from the authenticated session.
@@ -35,7 +35,7 @@ module Api
         raise Pundit::NotAuthorizedError unless params[:email] == current_user.email
       end
 
-      render json: { user: { id: user_id, name: current_user.name, email: current_user.email } }
+      render json: { user: UserJson.call(current_user) }
     end
   end
 end

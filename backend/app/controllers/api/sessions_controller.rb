@@ -13,7 +13,7 @@ module Api
 
       # Sign-in verifies the mock credential; the browser keeps it for later
       # requests. No server-side session row or cookie is created.
-      render json: { user: { id: user.id.to_s, name: user.name, email: user.email } }
+      render json: { user: UserJson.call(user) }
     end
   end
 end
