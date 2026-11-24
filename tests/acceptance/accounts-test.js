@@ -79,7 +79,7 @@ module('Acceptance | Accounts Dashboard', function (hooks) {
       { accounts: [{ ...ACCOUNT_FIXTURE, balance: '10.30' }] },
     );
     const loadingAccounts = accountsApi.getAccounts();
-    await accountsApi.createTransaction('1', {
+    await this.owner.lookup('service:transactions-api').createTransaction('1', {
       direction: 'credit',
       amount: '0.20',
       description: '',
@@ -97,14 +97,15 @@ module('Acceptance | Accounts Dashboard', function (hooks) {
     await visit('/accounts/1');
     const accountsApi = this.owner.lookup('service:accounts-api');
     const accountRecord = this.owner.lookup('controller:accounts/show').model;
-    const request = accountsApi.request.bind(accountsApi);
+    const userApi = this.owner.lookup('service:user-api');
+    const request = userApi.request.bind(userApi);
     let listAttempts = 0;
 
-    accountsApi.request = async (path, options) => {
+    userApi.request = async (path, options) => {
       if (path === '/accounts') {
         listAttempts += 1;
         if (listAttempts <= 3) {
-          await accountsApi.createTransaction('1', {
+          await this.owner.lookup('service:transactions-api').createTransaction('1', {
             direction: 'credit',
             amount: '0.20',
             description: '',

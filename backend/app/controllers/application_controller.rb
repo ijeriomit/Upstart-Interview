@@ -1,17 +1,13 @@
 class ApplicationController < ActionController::API
-  include ActionController::RequestForgeryProtection
+  include ActionController::HttpAuthentication::Basic::ControllerMethods
   include Pundit::Authorization
 
   # Keep the request contract explicit. Rails otherwise wraps some flat JSON
   # bodies in a model key inferred from the controller name.
   wrap_parameters false
 
-  # Check for a live session before checking the token on protected actions.
   before_action :no_store
   before_action :require_signed_in
-  self.allow_forgery_protection = true
-  self.forgery_protection_origin_check = true
-  protect_from_forgery with: :exception
 
   # Convert lookup, authorization, and validation exceptions into the same
   # JSON error format across controllers.
@@ -21,10 +17,6 @@ class ApplicationController < ActionController::API
 
   rescue_from Pundit::NotAuthorizedError do
     render_error(:forbidden, "forbidden", "You don't have access to this action.")
-  end
-
-  rescue_from ActionController::InvalidAuthenticityToken do
-    render_error(:forbidden, "invalid_csrf_token", "Your form token expired. Please try again.")
   end
 
   rescue_from ActionController::ParameterMissing, ActionDispatch::Http::Parameters::ParseError do
@@ -41,14 +33,18 @@ class ApplicationController < ActionController::API
 
   private
 
-  def current_user_session
-    if (session_id = session[:user_session_id])
-      @current_user_session ||= UserSession.active.includes(:user).find_by(id: session_id)
-    end
-  end
-
   def current_user
-    current_user_session&.user
+    return @current_user if defined?(@current_user)
+
+    # This mock interview checks the supplied credentials on each request.
+    # Pundit still receives the authenticated user, never a client-supplied ID.
+    @current_user = authenticate_with_http_basic do |email, password|
+      email = email.force_encoding(Encoding::UTF_8)
+      password = password.force_encoding(Encoding::UTF_8)
+      if email.valid_encoding? && password.valid_encoding? && password.length <= 128
+        User.find_by(email: email.strip.downcase, password: password)
+      end
+    end
   end
 
   def require_signed_in

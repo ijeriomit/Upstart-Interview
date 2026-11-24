@@ -1,64 +1,16 @@
-import Service from '@ember/service';
 import { module, test } from 'qunit';
-import { setupTest } from 'accounts-dashboard/tests/helpers';
-
-const ACCOUNT = { id: '1', name: 'Everyday checking', balance: '10.10' };
-
-function accountSummary(currentAccount = ACCOUNT) {
-  return {
-    account: currentAccount,
-    totalCredits: '0.00',
-    totalDebits: '0.00',
-    transactions: [],
-  };
-}
+import { SessionChangedError } from 'accounts-dashboard/services/user-api';
+import {
+  ACCOUNT,
+  accountSummary,
+  setupApiServiceTest,
+} from 'accounts-dashboard/tests/helpers/api-service-test';
 
 module('Integration | Service | accounts-api', function (hooks) {
-  setupTest(hooks);
-
-  hooks.beforeEach(function () {
-    this.pushCalls = [];
-    const pushCalls = this.pushCalls;
-
-    this.owner.register(
-      'service:store',
-      class extends Service {
-        push(payload) {
-          pushCalls.push(payload);
-          return payload;
-        }
-      },
-    );
-
-    this.accountsApi = this.owner.lookup('service:accounts-api');
-  });
-
-  test('getCurrentUser requests /me and pushes normalized user payload', async function (assert) {
-    this.accountsApi.request = async (path) => {
-      assert.strictEqual(path, '/me');
-      return {
-        user: { id: '1', name: 'Alex Morgan', email: 'alex@example.test' },
-      };
-    };
-
-    const pushed = await this.accountsApi.getCurrentUser();
-
-    assert.strictEqual(this.pushCalls.length, 1);
-    assert.deepEqual(this.pushCalls[0], {
-      data: {
-        type: 'user',
-        id: '1',
-        attributes: {
-          name: 'Alex Morgan',
-          email: 'alex@example.test',
-        },
-      },
-    });
-    assert.strictEqual(pushed, this.pushCalls[0]);
-  });
+  setupApiServiceTest(hooks);
 
   test('getAccounts pushes partial account records from list endpoint', async function (assert) {
-    this.accountsApi.request = async (path) => {
+    this.userApi.request = async (path) => {
       assert.strictEqual(path, '/accounts');
       return {
         accounts: [
@@ -89,7 +41,7 @@ module('Integration | Service | accounts-api', function (hooks) {
   });
 
   test('getAccount pushes summary with transactions relationship', async function (assert) {
-    this.accountsApi.request = async (path) => {
+    this.userApi.request = async (path) => {
       assert.strictEqual(path, '/accounts/1');
       return {
         account: ACCOUNT,
@@ -121,76 +73,50 @@ module('Integration | Service | accounts-api', function (hooks) {
     );
   });
 
-  test('createTransaction POSTs JSON payload and pushes updated summary', async function (assert) {
-    assert.expect(7);
-
-    this.accountsApi.request = async (path, options) => {
-      if (path === '/accounts/1/transactions') {
-        assert.strictEqual(options.method, 'POST');
-        assert.strictEqual(options.headers['Content-Type'], 'application/json');
-        assert.deepEqual(JSON.parse(options.body), {
-          transaction: {
-            direction: 'credit',
-            amount: '0.20',
-            description: 'Practice deposit',
-          },
+  test('an old account response cannot enter the store after sign-out', async function (assert) {
+    let resolveList;
+    this.userApi.request = async (path) => {
+      if (path === '/accounts') {
+        return new Promise((resolve) => {
+          resolveList = resolve;
         });
-
-        return {
-          ...accountSummary({ ...ACCOUNT, balance: '10.30' }),
-          totalCredits: '0.20',
-          transactions: [
-            {
-              id: '2',
-              accountId: '1',
-              direction: 'credit',
-              amount: '0.20',
-              description: 'Practice deposit',
-              createdAt: '2026-01-02T12:00:00Z',
-            },
-          ],
-        };
       }
-
-      throw new Error(`Unexpected path: ${path}`);
+      return null;
     };
 
-    const pushed = await this.accountsApi.createTransaction('1', {
-      direction: 'credit',
-      amount: '0.20',
-      description: 'Practice deposit',
-    });
-
-    assert.strictEqual(this.pushCalls.length, 1);
-    assert.strictEqual(this.pushCalls[0].data.attributes.balance, '10.30');
-    assert.strictEqual(this.pushCalls[0].included[0].attributes.amount, '0.20');
-    assert.strictEqual(pushed, this.pushCalls[0]);
+    const loading = assert.rejects(
+      this.accountsApi.getAccounts(),
+      SessionChangedError,
+    );
+    await this.userApi.signOut();
+    resolveList({ accounts: [ACCOUNT] });
+    await loading;
+    assert.deepEqual(this.pushCalls, []);
   });
 
   test('getAccounts retries stale reads and pushes only the fresh list payload', async function (assert) {
     let listAttempts = 0;
+    let transactionMethod;
 
-    this.accountsApi.request = async (path, options) => {
+    this.userApi.request = async (path, options) => {
+      let response;
       if (path === '/accounts') {
         listAttempts += 1;
 
         if (listAttempts === 1) {
-          await this.accountsApi.createTransaction('1', {
+          await this.transactionsApi.createTransaction('1', {
             direction: 'credit',
             amount: '0.20',
             description: '',
           });
-          return { accounts: [ACCOUNT] };
         }
-
-        return {
-          accounts: [{ ...ACCOUNT, balance: '10.30' }],
+        response = {
+          accounts:
+            listAttempts === 1 ? [ACCOUNT] : [{ ...ACCOUNT, balance: '10.30' }],
         };
-      }
-
-      if (path === '/accounts/1/transactions') {
-        assert.strictEqual(options.method, 'POST');
-        return {
+      } else if (path === '/accounts/1/transactions') {
+        transactionMethod = options.method;
+        response = {
           ...accountSummary({ ...ACCOUNT, balance: '10.30' }),
           totalCredits: '0.20',
           transactions: [
@@ -204,15 +130,21 @@ module('Integration | Service | accounts-api', function (hooks) {
             },
           ],
         };
+      } else {
+        throw new Error(`Unexpected path: ${path}`);
       }
-
-      throw new Error(`Unexpected path: ${path}`);
+      return response;
     };
 
     await this.accountsApi.getAccounts();
 
+    assert.strictEqual(transactionMethod, 'POST');
     assert.strictEqual(listAttempts, 2);
-    assert.strictEqual(this.pushCalls.length, 2, 'transaction summary + fresh list');
+    assert.strictEqual(
+      this.pushCalls.length,
+      2,
+      'transaction summary + fresh list',
+    );
 
     const listPush = this.pushCalls[1];
     assert.deepEqual(listPush, {
@@ -232,10 +164,10 @@ module('Integration | Service | accounts-api', function (hooks) {
   test('getAccounts throws after three stale reads', async function (assert) {
     let listAttempts = 0;
 
-    this.accountsApi.request = async (path) => {
+    this.userApi.request = async (path) => {
       if (path === '/accounts') {
         listAttempts += 1;
-        await this.accountsApi.createTransaction('1', {
+        await this.transactionsApi.createTransaction('1', {
           direction: 'credit',
           amount: '0.20',
           description: '',
@@ -268,78 +200,5 @@ module('Integration | Service | accounts-api', function (hooks) {
       /Account data changed while loading\. Try again\./,
     );
     assert.strictEqual(listAttempts, 3);
-  });
-
-  test('request prefixes /api and merges Accept with custom headers', async function (assert) {
-    const originalFetch = globalThis.fetch;
-
-    globalThis.fetch = async (url, options) => {
-      assert.strictEqual(url, '/api/accounts');
-      assert.strictEqual(options.headers.Accept, 'application/json');
-      assert.strictEqual(options.headers['Content-Type'], 'application/json');
-      return {
-        ok: true,
-        json: async () => ({ accounts: [] }),
-      };
-    };
-
-    try {
-      await this.accountsApi.request('/accounts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-      });
-    } finally {
-      globalThis.fetch = originalFetch;
-    }
-  });
-
-  test('request maps network errors to connectivity guidance', async function (assert) {
-    const originalFetch = globalThis.fetch;
-    globalThis.fetch = async () => {
-      throw new Error('offline');
-    };
-
-    try {
-      await assert.rejects(
-        this.accountsApi.request('/accounts'),
-        /Could not reach the API\. Check that Rails is running\./,
-      );
-    } finally {
-      globalThis.fetch = originalFetch;
-    }
-  });
-
-  test('request maps API error payloads and malformed JSON failures', async function (assert) {
-    const originalFetch = globalThis.fetch;
-
-    globalThis.fetch = async () => ({
-      ok: false,
-      json: async () => ({ error: { message: 'Custom backend error.' } }),
-    });
-
-    try {
-      await assert.rejects(
-        this.accountsApi.request('/accounts'),
-        /Custom backend error\./,
-      );
-    } finally {
-      globalThis.fetch = originalFetch;
-    }
-
-    globalThis.fetch = async () => ({
-      ok: true,
-      json: async () => {
-        throw new Error('bad json');
-      },
-    });
-
-    try {
-      await assert.rejects(
-        this.accountsApi.request('/accounts'),
-        /The API request failed\./,
-      );
-    } finally {
-      globalThis.fetch = originalFetch;
-    }
   });
 });

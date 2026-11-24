@@ -2,22 +2,29 @@
 
 **Status.** Round 2 is split into five branches for individual review and implementation. The earlier Rails session draft is preserved on its feature branch. Finalizing that branch starts with a local mock credential flow.
 
+**Current slice.** The users and sessions branch uses a plain-text mock password
+and HTTP Basic credentials on each protected request. The browser stores those
+credentials in this tab's `sessionStorage` for refresh restoration. The
+account-creation, overdraft, and closure endpoints below belong to later slices.
+Cookie sessions, CSRF handling, server logout, and cross-tab sync are out of
+scope for this interview slice.
+
 ## Feature branches
 
-| Branch                              | Scope                                                                                                                                                              |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `feature/frontend-sign-in-form`     | Standalone Ember sign-in form and its browser validation.                                                                                                          |
-| `feature/frontend-session-menu`     | Builds on the form branch. Holds the sign-in route, hamburger actions, session restoration, and store cleanup.                                                     |
-| `feature/frontend-account-deletion` | Delete action, warning, and typed-name confirmation. Integrate with the closure API after its contract is ready.                                                   |
-| `feature/backend-users-sessions`    | Create-user action, sessions, and demo credential setup. The migrated draft still references bcrypt. Replace that path with mock credentials during branch review. |
-| `feature/backend-account-closure`   | Retain closed accounts and their ledger rows, filter both Pundit scopes to open accounts, and update policy specs.                                                 |
+| Branch                              | Scope                                                                                                                                             |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `feature/frontend-sign-in-form`     | Standalone Ember sign-in form and its browser validation.                                                                                         |
+| `feature/frontend-session-menu`     | Builds on the form branch. Holds the sign-in route, hamburger actions, session restoration, and store cleanup.                                    |
+| `feature/frontend-account-deletion` | Delete action, warning, and typed-name confirmation. Integrate with the closure API after its contract is ready.                                  |
+| `feature/backend-users-sessions`    | Create-user action, sessions, and demo credential setup. The branch uses plain-text mock passwords and creates typed opening accounts atomically. |
+| `feature/backend-account-closure`   | Retain closed accounts and their ledger rows, filter both Pundit scopes to open accounts, and update policy specs.                                |
 
 Account creation, account types, and the overdraft limit remain in the Round 2 acceptance criteria. Their branch placement is pending.
 
 ## Acceptance criteria
 
-- Signed-out visitors see **Sign in** and **Sign up** in the hamburger menu. Signed-in users see **Sign out**. Refresh restores the session. Signing out returns the browser to a public route and clears private account data. A protected API request without a valid session returns `401`.
-- Existing users receive passwords before the switch to session-based sign-in. Their user IDs, account ownership, and transaction history are preserved.
+- Signed-out visitors see **Sign in** and **Sign up** in the hamburger menu. Signed-in users see **Sign out**. Refresh restores the identity. Signing out returns the browser to a public route and clears private account data. A protected API request without valid credentials returns `401`.
+- Existing users receive passwords before the switch to credential-based sign-in. Their user IDs, account ownership, and transaction history are preserved.
 - Registration welcomes the user and collects their details, password, and one or more opening accounts. Each account needs a name, an account type, and a nonnegative initial deposit. `0` is valid. Nonnumeric amounts, negative amounts, and amounts with more than two decimal places prevent submission. Form help and validation messages work with keyboard, touch, and screen readers. Rails validates the same rules.
 - Signup saves the user, accounts, and positive opening-deposit transactions together. An invalid second account leaves no user, accounts, or transactions behind. A zero deposit leaves the account at `0.00`.
 - Signed-in users can create and delete their own accounts. The list and detail views show `checking`, `savings`, or `credit`. A debit can bring any account type down to `-1000.00`. A debit below that limit leaves both the balance and transaction count intact.
@@ -26,17 +33,15 @@ Account creation, account types, and the overdraft limit remain in the Round 2 a
 
 ## Proposed API contract
 
-Keep Rails' plain JSON envelopes and `{ error: { code, message } }` errors. IDs and money remain strings. New money fields use decimal strings such as `"25.00"`.
+Keep Rails' plain JSON envelopes and `{ error: { code, message } }` errors. IDs and money remain strings. New money fields use decimal strings such as `"25.00"`. Account creation and closure endpoints are proposed for later slices.
 
-| Endpoint                   | Request and outcome                                                                                                                                                                                                         |
-| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GET /api/csrf`            | Return `{ csrfToken }` for same-origin forms and refresh it after session rotation.                                                                                                                                         |
-| `POST /api/session`        | Accept `{ session: { email, password } }`. Set a session cookie and return `200` with `{ user }`. Invalid credentials return `401`.                                                                                         |
-| `GET /api/me`              | Return `{ user }` for the session identity or `401` when signed out. Preserve the existing ID and email checks when supplied.                                                                                               |
-| `DELETE /api/session`      | Revoke the session, clear the cookie, and return `204`.                                                                                                                                                                     |
-| `POST /api/users`          | Accept `{ user: { name, email, password }, accounts: [{ name, accountType, initialDeposit }] }`. Return `201` with `{ user }` and send the browser to sign-in.                                                              |
-| `POST /api/accounts`       | Require a valid session and accept `{ account: { name, accountType } }`. Take ownership from the session. Return `201` with the new zero-balance `{ account }`, `401` when signed out, or `422` for invalid account fields. |
-| `DELETE /api/accounts/:id` | Accept `{ account: { confirmationName } }`. Return `204` on closure, `409` for a nonzero balance, and `422` for a missing or mismatched name.                                                                               |
+| Endpoint                   | Request and outcome                                                                                                                                                                                                                                   |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST /api/session`        | Accept `{ session: { email, password } }`. Verify the mock password and return `200` with `{ user }`. Invalid credentials return `401`.                                                                                                               |
+| `GET /api/me`              | Return `{ user }` for valid HTTP Basic credentials or `401` when signed out. Preserve the existing ID and email checks when supplied.                                                                                                                 |
+| `POST /api/users`          | Accept `{ user: { name, email, password }, accounts: [{ name, accountType, initialDeposit }] }`. Return `201` with `{ user }` and send the browser to sign-in.                                                                                        |
+| `POST /api/accounts`       | Later slice: require valid credentials and accept `{ account: { name, accountType } }`. Take ownership from the authenticated user. Return `201` with the new zero-balance `{ account }`, `401` when signed out, or `422` for invalid account fields. |
+| `DELETE /api/accounts/:id` | Accept `{ account: { confirmationName } }`. Return `204` on closure, `409` for a nonzero balance, and `422` for a missing or mismatched name.                                                                                                         |
 
 Account list and detail responses add `accountType` to their existing account fields. Pundit filters those responses to open accounts owned by the signed-in user and hides transactions from closed accounts. List records stay partial so refreshing the list preserves detail totals and transaction relationships in Ember. The API client handles `204` before parsing JSON.
 
@@ -44,10 +49,10 @@ Account list and detail responses add `accountType` to their existing account fi
 
 ### 1. Session identity and navigation
 
-- **Backend agent.** Use a local-only mock credential check and preserve the session API needed by Ember. Keep mock credentials outside the database and repository. Finalize the session and local credential design during the backend branch review, including how newly created mock users receive credentials.
-- **Existing-user setup.** Preserve Alex and Jordan's existing records and their account history. Use local configuration to give each seeded identity a mock password. Verify both identities can sign in before switching protected routes to session identity.
-- **Frontend agent.** Add `menu.gjs` to the application shell and a public `/sign-in` route. Restore tracked session state with `/api/me` before loading account routes. Distinguish a `401` from a network failure. On session change, clear protected route and Ember Data state and ignore late replies from the previous session before they reach the store.
-- **Proof.** Rails request specs exercise login, `/api/me`, invalid credentials, CSRF, and logout with separate clients. Verify that provisioning an existing user preserves their ID and access to their existing accounts, and that seeds preserve an existing password on rerun. Ember acceptance covers menu states, refresh, and a delayed response from the previous user arriving after sign-out.
+- **Backend agent.** Use a mock credential check and preserve the session API needed by Ember. Store the demo password in the user row without bcrypt, as agreed for this interview project. Never include it in API responses or request logs.
+- **Existing-user setup.** Preserve Alex and Jordan's existing records and their account history. Seeds give missing credentials a documented mock password, with local environment overrides. Verify both identities can sign in before switching protected routes to session identity.
+- **Frontend agent.** Add `menu.gjs` to the application shell and a public `/sign-in` route. Restore identity with `/api/me` before loading account routes. Distinguish a `401` from a network failure. On identity change, clear private Ember Data records and ignore late replies from the previous user before they reach the store.
+- **Proof.** Rails controller request specs exercise login, `/api/me`, invalid credentials, and protected requests without credentials. Verify that provisioning an existing user preserves their ID and access to their existing accounts, and that seeds preserve an existing password on rerun. Ember acceptance covers menu states, refresh, and a delayed response from the previous user arriving after sign-out.
 
 ### 2. Account types and overdraft limit
 
@@ -73,6 +78,8 @@ The orchestrator freezes the API contract for each approved slice before backend
 
 **Decisions to confirm before the relevant slice.** Backfill known demo types and approve a classification rule for remaining accounts. Treat typing the name as account deletion confirmation. Confirm whether closed account names stay reserved under the current unique constraint. Confirm a credential enrollment path if there are existing users outside the local environment.
 
-**Migration and recovery.** Add fields, run a repeatable backfill, and verify existing records before enforcing required types. Coordinate the database and Rails overdraft change before accepting negative balances. A rollback must preserve session authorization and keep closed accounts out of active queries. After negative balances exist, returning to the old database bound would fail until those balances are addressed. Use a forward correction when rollback would expose closed accounts or reject existing balances.
+**Migration and recovery.** Add fields, run a repeatable backfill, and verify existing records before enforcing required types. Coordinate the database and Rails overdraft change before accepting negative balances. A rollback must preserve request authorization and keep closed accounts out of active queries. After negative balances exist, returning to the old database bound would fail until those balances are addressed. Use a forward correction when rollback would expose closed accounts or reject existing balances.
 
-**Pre-split verification.** Chrome passed 21 Ember examples on the original session draft. Ruby syntax checks passed. Rails runtime verification stopped at the missing bcrypt gem. Validate the frontend and backend again as their branches are finalized.
+The demo password column is additive and leaves the earlier digest column in place. Once users register through the new endpoint, rolling this migration back would discard their mock passwords. Preserve a database backup and use a forward correction after registration data exists.
+
+**Current verification.** Chrome passed 40 Ember examples after the frontend service split. Rails controller specs passed 38 examples before the final frontend refactor; the full Rails suite still needs PostgreSQL running locally.

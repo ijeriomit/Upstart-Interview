@@ -1,49 +1,54 @@
-import AccountsApiService from 'accounts-dashboard/services/accounts-api';
-import {
-  ACCOUNT_FIXTURE,
-  USER_FIXTURE,
-  buildAccountSummary,
-} from './accounts-fixtures';
+import UserApiService, {
+  CREDENTIALS_KEY,
+} from 'accounts-dashboard/services/user-api';
+import { USER_FIXTURE } from './accounts-fixtures';
+import { handleUserRequest } from './user-api-stub';
+import { handleAccountRequest } from './account-api-stub';
+import { handleTransactionRequest } from './transaction-api-stub';
 
-export function setupAccountsApiStub(testContext) {
+// One setup helper registers a fake transport; endpoint behavior lives in
+// separate handlers so each API area can change without growing this file.
+export function setupAccountsApiStub(testContext, { signedIn = true } = {}) {
+  if (signedIn) {
+    sessionStorage.setItem(
+      CREDENTIALS_KEY,
+      JSON.stringify({ email: USER_FIXTURE.email, password: 'mock-password' }),
+    );
+  } else {
+    sessionStorage.removeItem(CREDENTIALS_KEY);
+  }
+
   testContext.submissions = [];
   testContext.accountLists = [];
+  testContext.apiRequests = [];
+  testContext.registrations = [];
 
-  const submissions = testContext.submissions;
-  const accountLists = testContext.accountLists;
+  const state = {
+    currentUser: signedIn ? USER_FIXTURE : null,
+    registeredUser: null,
+    registeredPassword: null,
+    registeredAccounts: [],
+    submissions: testContext.submissions,
+    accountLists: testContext.accountLists,
+    apiRequests: testContext.apiRequests,
+    registrations: testContext.registrations,
+  };
 
   testContext.owner.register(
-    'service:accounts-api',
-    class extends AccountsApiService {
+    'service:user-api',
+    class extends UserApiService {
       async request(path, options) {
-        switch (path) {
-          case '/me':
-            return { user: USER_FIXTURE };
-          case '/accounts':
-            return accountLists.shift() ?? { accounts: [ACCOUNT_FIXTURE] };
-          case '/accounts/1':
-            return buildAccountSummary();
-          case '/accounts/1/transactions': {
-            const { transaction } = JSON.parse(options.body);
-            submissions.push({ path, method: options.method, transaction });
-            if (transaction.amount === '0.201') {
-              throw new Error('Enter a decimal amount with two decimal places.');
-            }
-            return {
-              ...buildAccountSummary({ ...ACCOUNT_FIXTURE, balance: '10.30' }),
-              totalCredits: '0.20',
-              transactions: [
-                {
-                  ...transaction,
-                  id: '2',
-                  createdAt: '2026-01-02T12:00:00Z',
-                },
-              ],
-            };
-          }
-          default:
-            throw new Error(`Unexpected API request: ${path}`);
+        state.apiRequests.push(path);
+        if (['/me', '/session', '/users'].includes(path)) {
+          return handleUserRequest(path, options, state);
         }
+        if (path === '/accounts' || path === '/accounts/1') {
+          return handleAccountRequest(path, state);
+        }
+        if (path === '/accounts/1/transactions') {
+          return handleTransactionRequest(path, options, state);
+        }
+        throw new Error(`Unexpected API request: ${path}`);
       }
     },
   );

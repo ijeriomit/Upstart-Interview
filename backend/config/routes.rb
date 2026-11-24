@@ -4,9 +4,9 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   namespace :api do
-    get "csrf", to: "sessions#csrf"
-    resource :session, only: [:create, :destroy]
+    resource :session, only: :create
     get "me", to: "users#show"
+    resources :users, only: [:create]
     resources :accounts, only: [:index, :show] do
       resources :transactions, only: [:create]
     end
